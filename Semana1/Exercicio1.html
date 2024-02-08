@@ -5,6 +5,7 @@
     <title>ISCTE-Mockup</title>
     <link rel="icon" type="image/x-icon" href="icon.png">
     <link rel="stylesheet" href="style.css">
+    
 </head>
 
 
@@ -24,35 +25,24 @@
             <input type="text" required><br>
             <br>
 
-            <fieldset>
+            <fieldset >
+                <script src="main.js"></script>
                 <legend>Dados dos alunos</legend>
+                <div id="studentDiv">
+                    <div>
+                        <strong>Aluno:</strong>
+                        <label>Nome</label>
+                        <input type="text" required>
+                        <label>Numero</label>
+                        <input type="number" required>
+                        <label>Email</label>
+                        <input type="email" required>
+                        <button onclick="removeDiv(this)">Remover</button>
+                        <br>
+                    </div>
+                </div>
+                <button id="addStudentButton" type="button">Adicionar Aluno</button>
                 
-                <strong>Aluno 1:</strong>
-                <label>Nome</label>
-                <input type="text" required>
-                <label>Numero</label>
-                <input type="number" required>
-                <label>Email</label>
-                <input type="email" required>
-                <br>
-
-                <strong>Aluno 2:</strong>
-                <label>Nome</label>
-                <input type="text">
-                <label>Numero</label>
-                <input type="number">
-                <label>Email</label>
-                <input type="email">
-                <br>
-
-                <strong>Aluno 3:</strong>
-                <label>Nome</label>
-                <input type="text">
-                <label>Numero</label>
-                <input type="number">
-                <label>Email</label>
-                <input type="email">
-                <br>
             </fieldset>
 
             <fieldset>
@@ -79,7 +69,7 @@
     </div>
     <div class="generic-content-container">
         <h3>Projetos submetidos</h3>
-        <table>
+        <table cellspacing="0" cellpadding="0">
             <tr>
               <th>Titulo</th>
               <th>Descricao</th>

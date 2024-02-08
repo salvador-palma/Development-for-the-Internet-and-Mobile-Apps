@@ -40,6 +40,107 @@ footer{
     box-shadow: 0px 10px 20px 5px rgba(16, 16, 76, 0.4);
 }
 
+
+/* SUBMISSAO DE PROJETOS */
+
+.input-field{
+    position: relative;
+    background-color: transparent;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: black;
+    
+}
+
+.input-label{
+    position: absolute;
+    transition: all 0.2s;
+}
+
+.input-field:invalid:not(:placeholder-shown):not(:focus){
+    background-color: rgb(255, 185, 185);
+}
+
+.input-label:has(+ .input-field:not(:placeholder-shown), + .input-field:focus){
+    transform: translateY(-15px);
+    font-size: 90%;
+}
+
+#studentDiv > div {
+    display:flex;
+    flex-direction: row;
+    justify-content:left;
+    margin: 1vw 0 1vw 0;
+}
+#studentDiv > div > div{
+    margin: 0 1vw 0 1vw;
+    width: 10vw;
+}
+#studentDiv button {
+    border: none;
+    padding: 5px;
+}
+#studentDiv img {
+    width:1vw;
+    height:auto;
+}
+#studentDiv input{
+    width:100%;
+}
+fieldset{
+    padding: 1vw;
+    outline: 0;
+    border-width: 2px 0 0 0;
+    border-color: #ffffff;
+
+}
+
+input[value="Submeter"]{
+    
+    color:white;
+    font-weight: bold;
+    padding: 1vw;
+}
+
+button, input[value="Submeter"]{
+    height: auto;
+    background-color: rgb(86, 144, 243);
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 5px 5px 2px rgba(86, 144, 243, 0.2);
+    transition: all 0.2s;
+}
+button:hover, input[value="Submeter"]:hover{
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 7px 2px rgba(86, 144, 243, 0.3);
+}
+#addStudentButton > img{
+    width:3vw;
+    height: auto;
+
+}
+textarea{
+    resize: vertical;
+    max-width:50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* LISTA DE EVENTOS */
 .event-list-container{
     display: flex;
     flex-direction: row;

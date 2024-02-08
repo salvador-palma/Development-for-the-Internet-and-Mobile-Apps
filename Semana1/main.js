@@ -3,17 +3,30 @@ document.addEventListener("DOMContentLoaded", () => {
     var studentDiv = document.getElementById("studentDiv");
   
     addStudent.addEventListener("click", function() {
+      var divs = document.querySelectorAll("#studentDiv > div");
+    
+      if(divs.length == 3){
+        alert("Os grupos teem que ser formados por 3 alunos no maximo");
+        return;
+      }
       var newElement = document.createElement("div");
       newElement.innerHTML = `
-            <strong>Aluno:</strong>
-            <label>Nome</label>
-            <input type="text" required>
-            <label>Numero</label>
-            <input type="number" required>
-            <label>Email</label>
-            <input type="email" required>
-            <button onclick="removeDiv(this)" type="button">Remover</button>
-            <br>
+      <strong>Aluno:</strong>
+                        <div class="input">
+                            <label class="input-label">Nome</label>
+                            <input class="input-field" type="text" placeholder="" required>
+                        </div>
+                        <div class="input">
+                            <label class="input-label">Numero</label>
+                            <input class="input-field" type="number" placeholder="" required>
+                        </div>
+                        <div class="input">
+                            <label class="input-label">Email</label>
+                            <input class="input-field" type="email" placeholder="" required>
+                        </div>
+
+                        <button onclick="removeDiv(this)"><img src="https://icon-library.com/images/white-cross-icon/white-cross-icon-3.jpg"></button>
+                        <br>
         `;
       studentDiv.appendChild(newElement);
     });

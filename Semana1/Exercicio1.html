@@ -15,36 +15,42 @@
     </div>
     <div class="generic-content-container">
         <h3>Submissao de Projetos</h3>
-        <form title="Submissao de Projetos" action="Exercicio1_2.html">
+        <form class="project-submission-form" title="Submissao de Projetos" action="Exercicio1_2.html">
             
-            
-            <label>Titulo</label>
-            <input type="text" required><br>
-            <br>
-            <label>Descricao</label>
-            <input type="text" required><br>
-            <br>
-
-            <fieldset >
+            <fieldset>
+                <legend>Sobre o Projeto</legend>
+                <label class="input-label">Titulo</label>
+                <input type="text" class="input-field" placeholder="" required><br>
+                <br>
+                <label class="input-label">Descricao</label>
+                <textarea type="text" class="input-field" placeholder="" required> </textarea>
+                <br>
+            </fieldset>
+            <fieldset>
                 <script src="main.js"></script>
                 <legend>Dados dos alunos</legend>
                 <div id="studentDiv">
                     <div>
                         <strong>Aluno:</strong>
-                        <label>Nome</label>
-                        <input type="text" required>
-                        <label>Numero</label>
-                        <input type="number" required>
-                        <label>Email</label>
-                        <input type="email" required>
-                        <button onclick="removeDiv(this)">Remover</button>
+                        <div class="input">
+                            <label class="input-label">Nome</label>
+                            <input class="input-field" type="text" placeholder="" required>
+                        </div>
+                        <div class="input">
+                            <label class="input-label">Numero</label>
+                            <input class="input-field" type="number" placeholder="" required>
+                        </div>
+                        <div class="input">
+                            <label class="input-label">Email</label>
+                            <input class="input-field" type="email" placeholder="" required>
+                        </div>
+
+                        <button onclick="removeDiv(this)"><img src="https://icon-library.com/images/white-cross-icon/white-cross-icon-3.jpg"></button>
                         <br>
                     </div>
                 </div>
-                <button id="addStudentButton" type="button">Adicionar Aluno</button>
-                
+                <button id="addStudentButton" type="button"><img src="https://www.goodwin.edu/files/images/it/icon-new-user.png"></button>
             </fieldset>
-
             <fieldset>
                 <legend>Escolha do horario</legend>
                 
@@ -60,7 +66,7 @@
             </fieldset>
         
 
-            <input type="submit" value="Submeter">
+            <input type="submit" value="Submeter" style="grid-column-start: 1;grid-column-end: 3;">
 
 
 

@@ -58,11 +58,16 @@ a{
 footer{
     width: 100%;
     text-align: center;
-    color:var(--text-color-0);
+    color:white;
     background-image: var(--background-image-1);
     padding-top: 2vh;
     padding-bottom: 2vh;
 }
+
+footer > a {
+    color:white;
+}
+
 
 .header-container img{
     max-width: 100%;
@@ -194,20 +199,6 @@ textarea{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* LISTA DE EVENTOS */
 .event-list-container{
     display: flex;
@@ -237,7 +228,11 @@ textarea{
 }
 
 
+
+/*TABELA DE PROJETOS*/
+
 table{
+    color : black;
     width:90%;
     align-self: center;
     margin-left: auto;

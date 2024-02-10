@@ -12,13 +12,20 @@ document.addEventListener("DOMContentLoaded", () => {
       var currentTheme = htmlElement.getAttribute("data-theme");
       var newTheme = currentTheme === 'light' ? 'dark' : 'light';
       htmlElement.setAttribute("data-theme", newTheme); 
-      console.log(iscteLogo);
+      
       if(newTheme == "dark") iscteLogo.setAttribute("src", "Negative Logo.png");
       else iscteLogo.setAttribute("src", "Logo.png");
       
     });
 
     addStudent.addEventListener("click", function() {
+
+      var divs = document.querySelectorAll("#studentDiv > div");
+    
+      if (divs.length == 3) {
+        alert("Os grupos são no máximo de 3 alunos!"); return;
+      }
+
       var newElement = document.createElement("div");
       newElement.innerHTML = `
         <strong>Aluno:</strong>

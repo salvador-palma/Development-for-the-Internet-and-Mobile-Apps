@@ -1,39 +1,85 @@
+html[data-theme="light"]{
+    color-scheme: light;
+    --color-surface-0: white;
+    --background-image-0: linear-gradient(45deg, #50bdc9, #5690f3);
+    --background-image-1: linear-gradient(45deg, #225ea1, #5e98ce);
+    --background-color-0: white;
+    --background-color-1: rgb(255, 185, 185);
+    --background-color-2: rgb(86, 144, 243);
+    --background-color-3: #5690f3;
+    --background-color-4: rgb(184, 203, 255);
+    --background-color-5: rgb(148, 185, 255);
+    --background-generic-container: rgb(243, 241, 229);
+    --text-color-0: black;
+    --box-shadow-color-0: rgba(16, 16, 76, 0.3);
+    --box-shadow-color-1: rgba(16, 16, 76, 0.4);
+    --box-shadow-color-2: rgba(86, 144, 243, 0.2);
+    --box-shadow-color-3: rgba(86, 144, 243, 0.3);
+    --button-shadow-color-0: rgba(86, 144, 243, 0.4);
+    --button-shadow-color-1: rgba(86, 144, 243, 0.5);
+    --border-color: rgb(195, 26, 26);
+    
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --color-surface-0: #2c2c2c; /* Lightened black color */
+    --background-image-0: linear-gradient(45deg, #50bdc9, #5690f3); /* Darkened gradient */
+    --background-image-1: linear-gradient(45deg, #001b33, #004080); /* Darkened gradient */
+    --background-color-0: #000000; /* Darkened whitesmoke  003366*/
+    --background-color-1: #a83232; /* Darkened red color */
+    --background-color-2: #1a2d4d; /* Darkened blue color */
+    --background-color-3: #003366; /* Darkened blue color */
+    --background-color-4: #b8ccff; /* Darkened light blue color */
+    --background-color-5: #94b9ff; /* Darkened light blue color */
+    --background-generic-container: rgb(35, 35, 34);
+    --text-color-0: rgb(232, 227, 227); /* Light text on dark background */
+    --box-shadow-color-0: rgba(0, 0, 0, 0.3); /* Darkened box shadow */
+    --box-shadow-color-1: rgba(0, 0, 0, 0.4); /* Darkened box shadow */
+    --box-shadow-color-2: rgba(26, 45, 77, 0.2); /* Darkened box shadow */
+    --box-shadow-color-3: rgba(26, 45, 77, 0.3); /* Darkened box shadow */
+    --button-shadow-color-0: rgba(46, 175, 239, 0.4); /* Darkened button shadow */
+    --button-shadow-color-1: rgba(46, 175, 239, 0.5); /* Darkened button shadow */
+    --border-color: rgb(57, 54, 54); /* Light border color on dark background */
+  }
+  
+
 body{
     font-family: Arial, Helvetica, sans-serif;
     margin:0;
-    background-image: linear-gradient(45deg, #50bdc9, #5690f3);
+    background-image: var(--background-image-0);
     font-size: 1vw;
     
 }
 a{
-    color:black;
+    color:var(--text-color-0);
     text-decoration: none;
 }
 footer{
     width: 100%;
     text-align: center;
-    color:white;
-    background-image: linear-gradient(45deg, #225ea1, #5e98ce);
+    color:var(--text-color-0);
+    background-image: var(--background-image-1);
     padding-top: 2vh;
     padding-bottom: 2vh;
 }
 
 .header-container img{
-    max-width: 40%;
+    max-width: 100%;
     height:auto;
     
-    
 }
+
 .header-container{
     width: auto;
-    align-content: left;
-    background-color: whitesmoke;
-    box-shadow: 0px 10px 20px 5px rgba(16, 16, 76, 0.3);
+    display: flex;
+    background-color: var(--background-color-0);
+    box-shadow: 0px 10px 20px 5px var(--box-shadow-color-0);
     padding: 2vh 4vh 4vh 4vh;
 }
 
 .generic-content-container{
-    background-color: rgb(243, 241, 229);
+    background-color: var(--background-generic-container);
     border-radius: 15px;
     padding: 2vw 2vw 6vw 2vw;
     margin: 2vw;
@@ -48,7 +94,7 @@ footer{
     background-color: transparent;
     outline: 0;
     border-width: 0 0 2px;
-    border-color: black;
+    border-color: var(--text-color-0);
     
 }
 
@@ -58,12 +104,16 @@ footer{
 }
 
 .input-field:invalid:not(:placeholder-shown):not(:focus){
-    background-color: rgb(255, 185, 185);
+    background-color: var(--background-color-1);
 }
 
 .input-label:has(+ .input-field:not(:placeholder-shown), + .input-field:focus){
     transform: translateY(-15px);
     font-size: 90%;
+}
+
+.right-aligned-button{
+    margin-left: auto;
 }
 
 #studentDiv > div {
@@ -97,23 +147,41 @@ fieldset{
 
 input[value="Submeter"]{
     
-    color:white;
+    color:var(--text-color-0);
     font-weight: bold;
     padding: 1vw;
 }
 
+
 button, input[value="Submeter"]{
     height: auto;
-    background-color: rgb(86, 144, 243);
+    background-color: var(--background-color-2);
     border-radius: 5px;
     border: none;
-    box-shadow: 0px 5px 5px 2px rgba(86, 144, 243, 0.2);
+    box-shadow: 0px 5px 5px 2px var(--box-shadow-color-2);
     transition: all 0.2s;
 }
 button:hover, input[value="Submeter"]:hover{
     transform: translateY(-5px);
-    box-shadow: 0px 10px 7px 2px rgba(86, 144, 243, 0.3);
+    box-shadow: 0px 10px 7px 2px var(--box-shadow-color-3);
 }
+
+button[value="theme"]{
+    border: 1px solid var(--text-color-0);
+    padding: 5px;
+    margin-left: auto;
+    height: 50px;
+    width: 50px;
+    background-color: var(--background-color-0);
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px 0px var(--button-shadow-color-0);
+    transition: all 0.2s;
+}
+button[value="theme"]:hover{
+    box-shadow: 0px 0px 5px 2px var(--button-shadow-color-1);
+    transform: translateY(0px);
+}
+
 #addStudentButton > img{
     width:3vw;
     height: auto;
@@ -176,8 +244,8 @@ table{
     margin-right: auto;
 }
 th{
-    background-color: #5690f3;
-    color:white;
+    background-color: var(--background-color-3);
+    color: var(--text-color-0);
     padding: 5px 0 5px 0;
 }
 th:first-child{
@@ -187,12 +255,12 @@ th:last-child{
     border-radius: 0 10px 0 0;
 }
 tr{
-    background-color: rgb(184, 203, 255);
+    background-color: var(--background-color-4);
     border:none;
     
 }
 tr:nth-child(odd) {
-    background-color: rgb(148, 185, 255);
+    background-color: var(--background-color-5);
     
 }
 

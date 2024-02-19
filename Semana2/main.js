@@ -8,15 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeButton = document.getElementById("theme-toggler");
     const iscteLogo = document.getElementById("iscteLogo");
   
-    // themeButton.addEventListener("click", function(){
-    //   var currentTheme = htmlElement.getAttribute("data-theme");
-    //   var newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    //   htmlElement.setAttribute("data-theme", newTheme); 
+    themeButton.addEventListener("click", function(){
+      var currentTheme = htmlElement.getAttribute("data-theme");
+      var newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      htmlElement.setAttribute("data-theme", newTheme); 
       
-    //   if(newTheme == "dark") iscteLogo.setAttribute("src", "Negative Logo.png");
-    //   else iscteLogo.setAttribute("src", "Logo.png");
+      if(newTheme == "dark") iscteLogo.setAttribute("src", "Negative Logo.png");
+      else iscteLogo.setAttribute("src", "Logo.png");
       
-    // });
+    });
 
     addStudent.addEventListener("click", function() {
 

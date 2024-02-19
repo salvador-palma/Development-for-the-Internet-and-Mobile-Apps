@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html data-theme = "light">
+<head>
+    <meta charset="UTF-8">
+    <title>ISCTE-Mockup</title>
+    <link rel="icon" type="image/x-icon" href="icon.png">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+    <header class="header-container">
+        <a href="https://www.iscte-iul.pt/"><img id="iscteLogo" src="Logo.png" width="327px" height="96px"></a>
+        <button id="aside-toggler"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png"> </button>
+        <!-- <button id="theme-toggler" value="theme" > <img src="brightness_1.png"> </button>-->
+    </header>
+    <aside id="asidePanel">
+            
+    </aside>
+    <main id="mainPanel">
+        <section class="generic-content-container" id="ProjectSubmission">
+            <h3>Submissao de Projetos</h3>
+            <form class="project-submission-form" title="Submissao de Projetos" action="Exercicio2_2.html">
+                
+                <fieldset>
+                    <legend>Sobre o Projeto</legend>
+                    <label class="input-label">Titulo</label>
+                    <input type="text" class="input-field" placeholder="" required><br>
+                    <br>
+                    <label class="input-label">Descricao</label>
+                    <input type="text" class="input-field" placeholder="" required> </input>
+                    <br>
+                </fieldset>
+                <fieldset>
+                    <script src="main.js"></script>
+                    <legend>Dados dos alunos</legend>
+                    <div id="studentDiv">
+                        <div>
+                            <strong>Aluno:</strong>
+                            <div class="input">
+                                <label class="input-label">Nome</label>
+                                <input class="input-field" type="text" placeholder="" required>
+                            </div>
+                            <div class="input">
+                                <label class="input-label">Numero</label>
+                                <input class="input-field" type="number" placeholder="" required>
+                            </div>
+                            <div class="input">
+                                <label class="input-label">Email</label>
+                                <input class="input-field" type="email" placeholder="" required>
+                            </div>
+    
+                            <button onclick="removeDiv(this)"><img src="https://icon-library.com/images/white-cross-icon/white-cross-icon-3.jpg"></button>
+                            <br>
+                        </div>
+                    </div>
+                    <button id="addStudentButton" type="button"><img src="https://www.goodwin.edu/files/images/it/icon-new-user.png"></button>
+                </fieldset>
+                <fieldset>
+                    <legend>Escolha do horario</legend>
+                    
+                    <label>8:00-8:30</label>
+                    <input type="radio" name="horario" required><br>
+                    <label>8:30-9:00</label>
+                    <input type="radio" name="horario" required><br>
+                    <label>14:00-14:30</label>
+                    <input type="radio" name="horario" required><br>
+                    <label>14:30-15:00</label>
+                    <input type="radio" name="horario" required><br>
+    
+                </fieldset>
+            
+    
+                <input type="submit" value="Submeter" style="grid-column-start: 1;grid-column-end: 3;">
+    
+    
+    
+    
+            </form>
+        </section>
+        <section class="generic-content-container" id="SubmittedProjects">
+            <h3>Projetos submetidos</h3>
+            <table cellspacing="0" cellpadding="0">
+                <tr>
+                  <th>Titulo</th>
+                  <th>Descricao</th>
+                  <th>Horario</th>
+                </tr>
+                <tr>
+                  <td>Web-Site Rio de Mel</td>
+                  <td>Web-Site e Base de Dados para a famosa churrascaria Rio de Mel</td>
+                  <td>8:00-8:30</td>
+                </tr>
+                <tr >
+                  <td>JS Ludico</td>
+                  <td>Pagina Web com jogos ludicos feitos em JavaScript</td>
+                  <td>14:30-15:00</td>
+                </tr>
+                <tr >
+                    <td>Robot Inteligente Betano</td>
+                    <td>Grandes ganho monetários a um clique de distância!</td>
+                    <td>14:00-14:30</td>
+                  </tr>
+              </table>
+        </section>
+        <section class="generic-content-container" id="OtherEvents">
+            <h3>Outros eventos</h3>
+            <div class="event-list-container">
+                <a href="https://www.iscte-iul.pt/eventos/3436/fista-2024-mundo-tecnologias-arquitetura-de-volta-iscte"><img src=https://www.iscte-iul.pt/assets/files/2024/01/16/1705400893101_fista24.JPG><br>FISTA 2024: o mundo das tecnologias e da arquitetura de volta ao Iscte</a><br>
+                <a href="https://www.iscte-iul.pt/eventos/3425/ciclo-internacional-de-conferencias-doutorais-espp-202324"><img src="https://www.iscte-iul.pt/assets/files/2024/01/12/1705078649207_2024_01_08_1704728741503_CICD_22_23_Fundo_sem_texto_landscape.png"><br>Ciclo Internacional de Conferências Doutorais da ESPP 2023/24</a><br>
+                <a href="https://www.iscte-iul.pt/eventos/3442/health-care-and-population-management-in-colonial-africa"><img src="https://www.iscte-iul.pt/assets/files/2024/01/22/1705926924207_Photograph_of_a_ceremony.jpg"><br>Health Care and Population Management in Colonial Africa</a><br>
+                <a href="https://www.iscte-iul.pt/eventos/3439/entrepreneurs-business-associations-and-rentier-capitalism-in-africa"><img src="https://www.iscte-iul.pt/assets/files/2024/01/19/1705666023022_cytonn_photography_n95VMLxqM2I_unsplash__2___2__Easy_Resize_com.jpg"><br>Entrepreneurs, business associations and rentier capitalism in Africa</a><br>
+            </div>
+        </section>
+        <section class="generic-content-container" id="About">
+            <h3>Sobre o concurso</h3>
+            <div class="prize-container">
+                <div>
+                    <img src="https://www.tudo4mobile.pt/image/cache/catalog/1%20urvashi/Vodafone%20Yorn%20X%20Card-550x550-.jpg">
+                    <br><strong>2 Premio: </strong> 50€ + 50GB Yorn <br>
+                </div>
+                <div>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTIxTozDlgbrp5_-KlDeHm5nZgHE77F-8tep4RnrNIcyBsPQE4WlwU09ttk5Nmwo1dIVE">
+                    <br><strong>1 Premio: </strong> 250€ + Sweat ISCTE <br>
+                </div>
+                
+                <div>
+                    <img src="https://scontent.flis10-1.fna.fbcdn.net/v/t39.30808-6/376823663_687036206807365_4480728040624361057_n.jpg?stp=dst-jpg_p600x600&_nc_cat=105&ccb=1-7&_nc_sid=3635dc&_nc_ohc=Y0w-TLciIPEAX_fQJXj&_nc_ht=scontent.flis10-1.fna&oh=00_AfDvgsHyJ1S1QROI1vr8TAYJ_zIUHGpp_-x3iN1ksANtwg&oe=65C8DA10">
+                    <br><strong>3 Premio: </strong> Cartao NET <br>
+                </div>
+            </div>
+            
+            <br>
+            <center>
+                <Strong>Juris:</Strong><br>
+            Ana Leite<br>
+            Rita Mendes<br>
+            Tiago Bernardino<br>
+            </center>
+            
+    
+        </section>
+    </main>
+    
+    <footer>
+        <h4>Contacte-nos</h4>
+        <a href="tel:+351217903000"><strong>Tlf:</strong> +351 217 903 000</a> <a href="mailto:geral@iscte.pt"><strong>Email:</strong> geral@iscte.pt</a>
+    </footer>    
+</body>
+
+
+</html>

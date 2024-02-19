@@ -43,7 +43,9 @@ html[data-theme="dark"] {
     --border-color: rgb(57, 54, 54); /* Light border color on dark background */
   }
   
-
+html{
+    scroll-behavior: smooth
+}
 body{
     font-family: Arial, Helvetica, sans-serif;
     margin:0;
@@ -82,36 +84,57 @@ footer > a {
     background-color: var(--background-color-0);
     box-shadow: 0px 10px 20px 5px var(--box-shadow-color-0);
     padding: 2vh 4vh 4vh 4vh;
+
+    margin-right: 0%;
+    transition: all ease 0.2s;
 }
 
 #aside-toggler{
     border: 1px solid var(--text-color-0);
     padding: 5px;
+    margin-top: 10px;
     margin-left: auto;
     height: 50px;
     width: 50px;
     background-color: var(--background-color-0);
-    border-radius: 5px;
-    box-shadow: 0px 0px 3px 0px var(--button-shadow-color-0);
-    transition: all 0.2s;
+    border: none;
 }
 aside{
+    font-weight: bolder;
     height: 100%;
-  width: 0%; 
-  position: fixed; 
-  z-index: 0; 
-  top: 0; 
-  right: 0;
-  background-color: var(--background-color-0); 
-  overflow-x: hidden; 
-  padding-top: 20px;
+    width: 0%; 
+    position: fixed; 
+    z-index: 0; 
+    top: 0; 
+    right: 0;
+    background-color: var(--background-color-0); 
+    overflow-x: hidden; 
+    padding-top: 20px;
 
-  transition: all ease 0.2s;
+    transition: all ease 0.2s;
+}
+aside ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 50%;
+}
+
+aside a:hover{
+    
+    color:var(--button-shadow-color-1);
+    transition: all ease 0.2s;
+}
+aside nav {
+    margin-top: 12vh;
+    height:50%;
 }
 main{
     margin-right: 0%;
     transition: all ease 0.2s;
 }
+
+
 
 
 .generic-content-container{
@@ -194,12 +217,12 @@ button, input[value="Submeter"]{
     background-color: var(--background-color-2);
     border-radius: 5px;
     border: none;
-    box-shadow: 0px 5px 5px 2px var(--box-shadow-color-2);
+    /*box-shadow: 0px 5px 5px 2px var(--box-shadow-color-2);*/
     transition: all 0.2s;
 }
 button:hover, input[value="Submeter"]:hover{
     transform: translateY(-5px);
-    box-shadow: 0px 10px 7px 2px var(--box-shadow-color-3);
+    /*box-shadow: 0px 10px 7px 2px var(--box-shadow-color-3);*/
 }
 
 button[value="theme"]{

@@ -55,8 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
       isAsideOn = !isAsideOn;
       const asidePanel = document.getElementById("asidePanel");
       const mainPanel = document.getElementById("mainPanel");
+      const headerPanel = document.getElementById("headerPanel");
       asidePanel.style.width = isAsideOn ? "25%" : "0%";
-      mainPanel.style.marginRight = isAsideOn ? "0%" : "25%";
+      mainPanel.style.marginRight = isAsideOn ? "25%" : "0%";
+      headerPanel.style.marginRight = isAsideOn ? "25%" : "0%";
       
 
     });

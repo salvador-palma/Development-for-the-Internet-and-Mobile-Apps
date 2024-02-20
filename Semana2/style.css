@@ -18,7 +18,7 @@ html[data-theme="light"]{
     --button-shadow-color-0: rgba(86, 144, 243, 0.4);
     --button-shadow-color-1: rgba(86, 144, 243, 0.5);
     --border-color: rgb(195, 26, 26);
-    
+    --box-shadow-ui:0px 4.2px 4px rgba(0, 0, 0, 0.05),0px 11.5px 11.1px rgba(0, 0, 0, 0.034),0px 27.7px 26.8px rgba(0, 0, 0, 0.026),0px 92px 89px rgba(0, 0, 0, 0.018);
 }
 
 html[data-theme="dark"] {
@@ -57,6 +57,11 @@ a{
     color:var(--text-color-0);
     text-decoration: none;
 }
+
+.unselectable{
+    user-select: none;
+}
+
 footer{
     width: 100%;
     text-align: center;
@@ -146,76 +151,202 @@ main{
 
 
 .generic-content-container{
-    background-color: var(--background-generic-container);
+    background-color: rgba(255,255,255,0.75);
     border-radius: 15px;
     padding: 2vw 2vw 6vw 2vw;
-    margin: 2vw;
+    margin: 2vw 5vw 2vw 5vw;
     box-shadow: 0px 10px 20px 5px rgba(16, 16, 76, 0.4);
 }
 
 
 /* SUBMISSAO DE PROJETOS */
 
-.input-field{
-    position: relative;
-    background-color: transparent;
-    outline: 0;
-    border-width: 0 0 2px;
-    border-color: var(--text-color-0);
+.project-submission-form{
     
+    margin: 0 10% 0 10%;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: auto 100px;
+
+    & #generalInfo {
+        background-color: whitesmoke;
+        border-radius: 15px;
+        grid-area: 1 / 1 / span 2 / span 1;
+        display:flex;
+        flex-direction: column;
+        margin-top: 1%;
+        padding: 3%;
+        box-shadow:var(--box-shadow-ui);
+        & .input + .input{
+            margin-top:8%;
+        }
+    }
+    & #studentInfo{
+        padding:0;
+    }
+    & #appointmentSchedule{
+        padding:0;
+        background-color: rgb(183, 192, 202);
+        border-radius: 15px;
+        box-shadow:var(--box-shadow-ui);
+        display:flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        
+        overflow: hidden;
+        & input[type="radio"]{
+            display:none;
+        }
+        & label{
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width:25%;
+            height:100%;
+           
+            text-align: center;
+        }
+        & #slot1:checked ~ #slot1-label,
+          #slot2:checked ~ #slot2-label, 
+          #slot3:checked ~ #slot3-label,
+          #slot4:checked ~ #slot4-label{
+            background-color: white;
+        }
+
+    }
+}
+
+
+fieldset{
+    border:none;
+    margin: 1%;
+}
+
+
+
+.input{
+    position: relative;
+    height: 60px;
+    min-width: 25%;
+    line-height: 50px;
 }
 
 .input-label{
     position: absolute;
-    transition: all 0.2s;
+    font-size: 0.85em;
+    color:black;
+    padding: 0 1% 0 1%;
+    margin: 0 1.5vw;
+    background-color: whitesmoke;
+    transform: translate(-15%, -40%);
+    height: 30px;
+    line-height: 30px;
+    z-index: 1;
+}
+.input-field{
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   outline: none;
+   font-size: 1em;
+   line-height: 80px;
+   border-radius: 10px;
+   border: 2px solid var(--button-shadow-color-1);
+   background: transparent;
+   transition: 0.1s ease;
+   z-index: 1;
+   
 }
 
-.input-field:invalid:not(:placeholder-shown):not(:focus){
-    background-color: var(--background-color-1);
+.input-field:focus{
+    border: 4px solid var(--button-shadow-color-1);
 }
 
-.input-label:has(+ .input-field:not(:placeholder-shown), + .input-field:focus){
-    transform: translateY(-15px);
-    font-size: 90%;
+.textarea-input{
+    flex-grow: 1;
+    & textarea {
+        resize: none;
+        
+    }
+} 
+
+
+#studentDiv{
+    display: flex;
+    flex-direction: column;
+    
+    & > div {
+        background-color: var(--background-color-0);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 2%;
+        margin-bottom: 2%;
+        box-shadow:var(--box-shadow-ui);
+        & > div {
+            width:80%;
+            display:grid;
+            grid-template-columns: 1fr 1fr;
+            & > div {
+                margin: 4%;
+                width:90%;
+            }
+        }
+    }
+    & img {
+        width: auto;
+        height: 35px;
+    }
 }
 
-.right-aligned-button{
-    margin-left: auto;
-}
-
-#studentDiv > div {
-    display:flex;
-    flex-direction: row;
-    justify-content:left;
-    margin: 1vw 0 1vw 0;
-}
-#studentDiv > div > div{
-    margin: 0 1vw 0 1vw;
-    width: 10vw;
-}
-#studentDiv button {
-    border: none;
-    padding: 5px;
-}
-#studentDiv img {
-    width:1vw;
-    height:auto;
-}
-#studentDiv input{
+#addStudentButton{
     width:100%;
+    box-shadow:var(--box-shadow-ui);
+    & img{
+        width:5%;
+    }
 }
-fieldset{
-    padding: 1vw;
-    outline: 0;
-    border-width: 2px 0 0 0;
-    border-color: #ffffff;
 
+
+input[type="file"]{
+    
+    
+    border: 2px solid var(--button-shadow-color-1);
+    border-radius:10px;
+    margin-top: 7%;
+    height: 50px;
+    width:100%;
+    
+    font-size: 0.85em;
+    cursor: pointer;
+    &::-webkit-file-upload-button{
+        cursor: pointer;
+        background-color: var(--background-color-2);
+        color: whitesmoke;
+        border: none;
+        font-weight: bolder;
+        overflow: hidden;
+        height:100%;
+    }
 }
+
+
+
+
+
+
+
+
 
 input[value="Submeter"]{
-    
-    color:var(--text-color-0);
-    font-weight: bold;
+    box-shadow:var(--box-shadow-ui);
+    margin-top: 3%;
+    color:whitesmoke;
+    font-size: 1em;
+    font-weight: bolder;
     padding: 1vw;
 }
 
@@ -252,15 +383,7 @@ button[value="theme"]:hover{
     transform: translateY(0px);
 }
 
-#addStudentButton > img{
-    width:3vw;
-    height: auto;
 
-}
-textarea{
-    resize: vertical;
-    max-width:50%;
-}
 
 
 
@@ -345,3 +468,5 @@ tr:nth-child(odd) {
 .prize-container div:last-child{
     transform: translate(0, 60px);
 }
+
+

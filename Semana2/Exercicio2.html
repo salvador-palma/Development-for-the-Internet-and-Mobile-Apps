@@ -29,54 +29,80 @@
     <main id="mainPanel">
         <section class="generic-content-container" id="ProjectSubmission">
             <h3>Submissao de Projetos</h3>
+            
             <form class="project-submission-form" title="Submissao de Projetos" action="Exercicio2_2.html">
-                
-                <fieldset>
-                    <legend>Sobre o Projeto</legend>
-                    <label class="input-label">Titulo</label>
-                    <input type="text" class="input-field" placeholder="" required><br>
-                    <br>
-                    <label class="input-label">Descricao</label>
-                    <input type="text" class="input-field" placeholder="" required> </input>
+                <fieldset id="generalInfo">
+                    
+                    <div class="input">
+                        <input type="text" class="input-field" placeholder="" required>
+                        <label class="input-label">Titulo</label>
+                    </div>
+                    <div class="input textarea-input">
+                        <textarea type="text" class="input-field" placeholder="" required> </textarea>
+                        <label class="input-label">Descricao</label>
+                    </div>
+                    <div class="input">
+                        <input class="input-field" list="project-type" required>
+                        <label class="input-label">Tipo de Projeto</label>
+                        <datalist id="project-type">
+                            <option value="Sistema de Base de Dados"></option>
+                            <option value="Aplicacao Movel"></option>
+                            <option value="Sistemas Integrados"></option>
+                            <option value="Simulador"></option>
+                        </datalist>
+                    </div>
+
+                    <input type="file" required>
+                    
                     <br>
                 </fieldset>
-                <fieldset>
+                <fieldset id="studentInfo">
                     <script src="main.js"></script>
-                    <legend>Dados dos alunos</legend>
+                    
                     <div id="studentDiv">
                         <div>
-                            <strong>Aluno:</strong>
-                            <div class="input">
-                                <label class="input-label">Nome</label>
-                                <input class="input-field" type="text" placeholder="" required>
+                            <img src="https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png">
+                            <div>
+                                <div class="input">
+                                    <input class="input-field" type="text" placeholder="" required>
+                                    <label class="input-label">Nome</label>
+                                </div>
+                                <div class="input">
+                                    <select class="input-field">
+                                        <option>LEI</option>
+                                        <option>LEI-PL</option>
+                                        <option>IGE</option>
+                                      </select>
+                                    <label class="input-label" >Curso</label>
+                                </div>
+                                <div class="input">
+                                    <input class="input-field" type="number" placeholder="" required>
+                                    <label class="input-label">Numero</label>
+                                </div>
+                                <div class="input">
+                                    <input class="input-field" type="email" placeholder="" required>
+                                    <label class="input-label" for="">Email</label>
+                                </div>
                             </div>
-                            <div class="input">
-                                <label class="input-label">Numero</label>
-                                <input class="input-field" type="number" placeholder="" required>
-                            </div>
-                            <div class="input">
-                                <label class="input-label">Email</label>
-                                <input class="input-field" type="email" placeholder="" required>
-                            </div>
-    
-                            <button onclick="removeDiv(this)"><img src="https://icon-library.com/images/white-cross-icon/white-cross-icon-3.jpg"></button>
-                            <br>
+                            <img src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">
                         </div>
                     </div>
                     <button id="addStudentButton" type="button"><img src="https://www.goodwin.edu/files/images/it/icon-new-user.png"></button>
-                </fieldset>
-                <fieldset>
-                    <legend>Escolha do horario</legend>
+                </fieldset>  
+                <fieldset id="appointmentSchedule">
                     
-                    <label>8:00-8:30</label>
-                    <input type="radio" name="horario" required><br>
-                    <label>8:30-9:00</label>
-                    <input type="radio" name="horario" required><br>
-                    <label>14:00-14:30</label>
-                    <input type="radio" name="horario" required><br>
-                    <label>14:30-15:00</label>
-                    <input type="radio" name="horario" required><br>
+                    
+                    
+                    <input type="radio" name="horario" id="slot1" required>
+                    <label for="slot1" id="slot1-label" class="unselectable">8:00-8:30</label>
+                    <input type="radio" name="horario" id="slot2" checked required>
+                    <label for="slot2" id="slot2-label" class="unselectable">8:30-9:00</label>
+                    <input type="radio" name="horario" id="slot3" required>
+                    <label for="slot3" id="slot3-label" class="unselectable">14:00-14:30</label>
+                    <input type="radio" name="horario" id="slot4" required>
     
+                    <label for="slot4" id="slot4-label" class="unselectable">14:30-15:00</label>
+                    
                 </fieldset>
             
     

@@ -27,23 +27,30 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       var newElement = document.createElement("div");
-      newElement.innerHTML = `
-        <strong>Aluno:</strong>
-        <div class="input">
-          <label class="input-label">Nome</label>
-          <input class="input-field" type="text" placeholder="" required>
-        </div>
-        <div class="input">
-          <label class="input-label">Numero</label>
-          <input class="input-field" type="number" placeholder="" required>
-        </div>
-        <div class="input">
-          <label class="input-label">Email</label>
-          <input class="input-field" type="email" placeholder="" required>
-        </div>
-
-        <button onclick="removeDiv(this)"><img src="https://icon-library.com/images/white-cross-icon/white-cross-icon-3.jpg"></button>
-          <br>
+      newElement.innerHTML = `<img src="https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png">
+      <div>
+          <div class="input">
+              <input class="input-field" type="text" placeholder="" required>
+              <label class="input-label">Nome</label>
+          </div>
+          <div class="input">
+              <select class="input-field">
+                  <option>LEI</option>
+                  <option>LEI-PL</option>
+                  <option>IGE</option>
+                </select>
+              <label class="input-label" >Curso</label>
+          </div>
+          <div class="input">
+              <input class="input-field" type="number" placeholder="" required>
+              <label class="input-label">Numero</label>
+          </div>
+          <div class="input">
+              <input class="input-field" type="email" placeholder="" required>
+              <label class="input-label" for="">Email</label>
+          </div>
+      </div>
+      <img src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">
         `;
       studentDiv.appendChild(newElement);
     });
@@ -66,12 +73,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 
-function removeDiv(button) {
+function removeDiv(img) {
     var divs = document.querySelectorAll("#studentDiv > div");
     
 
     if (divs.length > 1) {
-      button.parentNode.parentNode.removeChild(button.parentNode);
+      img.parentNode.parentNode.removeChild(img.parentNode);
     } else {
       alert("O projeto tem que pertencer a pelo menos um aluno");
     }

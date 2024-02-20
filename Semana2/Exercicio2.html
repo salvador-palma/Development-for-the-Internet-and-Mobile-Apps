@@ -5,10 +5,12 @@
     <title>ISCTE-Mockup</title>
     <link rel="icon" type="image/x-icon" href="icon.png">
     <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
     
 </head>
 
 <body>
+    
     <header class="header-container" id="headerPanel">
         <a href="https://www.iscte-iul.pt/"><img id="iscteLogo" src="Logo.png" width="327px" height="96px"></a>
         <button id="aside-toggler"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png"> </button>
@@ -17,102 +19,16 @@
     <aside id="asidePanel">
         <nav>
             <ul>
-                <a href="#ProjectSubmission">SUBMISSAO DE PROJETOS</a>
-                <a href="#SubmittedProjects">PROJETOS SUBMETIDOS</a>
-                <a href="#OtherEvents">OUTROS EVENTOS</a>
-                <a href="#About">SOBRE O CONCURSO</a>
+                <a class="disabled-option">MENU PRINCIPAL</a>
+                <a href="Exercicio2_Submissao.html">SUBMISSAO DE PROJETOS</a>
+                
             </ul>
         </nav>
 
         <button id="theme-toggler" value="theme" > <img src="brightness_1.png"></button>
     </aside>
     <main id="mainPanel">
-        <section class="generic-content-container" id="ProjectSubmission">
-            <h3>Submissao de Projetos</h3>
-            
-            <form class="project-submission-form" id="project-form" title="Submissao de Projetos" action="Exercicio2_2.html">
-                <fieldset id="generalInfo">
-                    
-                    <div class="input">
-                        <input type="text" class="input-field" placeholder="" required>
-                        <label class="input-label">Titulo</label>
-                    </div>
-                    <div class="input textarea-input">
-                        <textarea type="text" class="input-field" placeholder="" required> </textarea>
-                        <label class="input-label">Descricao</label>
-                    </div>
-                    <div class="input">
-                        <input class="input-field" list="project-type" required>
-                        <label class="input-label">Tipo de Projeto</label>
-                        <datalist id="project-type">
-                            <option value="Sistema de Base de Dados"></option>
-                            <option value="Aplicacao Movel"></option>
-                            <option value="Sistemas Integrados"></option>
-                            <option value="Simulador"></option>
-                        </datalist>
-                    </div>
-
-                    <input type="file" required>
-                    
-                    <br>
-                </fieldset>
-                <fieldset id="studentInfo">
-                    <script src="main.js"></script>
-                    <div id="studentDiv">
-                        <div>
-                            <img src="https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png">
-                            <div>
-                                <div class="input">
-                                    <input class="input-field" type="text" placeholder="" required>
-                                    <label class="input-label">Nome</label>
-                                </div>
-                                <div class="input">
-                                    <select class="input-field">
-                                        <option>LEI</option>
-                                        <option>LEI-PL</option>
-                                        <option>IGE</option>
-                                      </select>
-                                    <label class="input-label" >Curso</label>
-                                </div>
-                                <div class="input">
-                                    <input class="input-field" type="number" placeholder="" required>
-                                    <label class="input-label">Numero</label>
-                                </div>
-                                <div class="input">
-                                    <input class="input-field" type="email" placeholder="" required>
-                                    <label class="input-label" for="">Email</label>
-                                </div>
-                            </div>
-                            <img src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">
-                        </div>
-                    </div>
-                    
-                    <button id="addStudentButton" type="button"><img src="https://www.goodwin.edu/files/images/it/icon-new-user.png"></button>
-                </fieldset>  
-                <fieldset id="appointmentSchedule">
-                    
-                    
-                    
-                    <input type="radio" name="horario" id="slot1" required>
-                    <label for="slot1" id="slot1-label" class="unselectable">8:00-8:30</label>
-                    <input type="radio" name="horario" id="slot2" checked required>
-                    <label for="slot2" id="slot2-label" class="unselectable">8:30-9:00</label>
-                    <input type="radio" name="horario" id="slot3" required>
-                    <label for="slot3" id="slot3-label" class="unselectable">14:00-14:30</label>
-                    <input type="radio" name="horario" id="slot4" required>
-    
-                    <label for="slot4" id="slot4-label" class="unselectable">14:30-15:00</label>
-                    
-                </fieldset>
-            
-                <span id="form-console"></span>
-                <input type="submit" value="Submeter" style="grid-column-start: 1;grid-column-end: 3;">
-    
-    
-    
-    
-            </form>
-        </section>
+        
         <section class="generic-content-container" id="SubmittedProjects">
             <h3>Projetos submetidos</h3>
             <table cellspacing="0" cellpadding="0">
@@ -141,10 +57,30 @@
         <section class="generic-content-container" id="OtherEvents">
             <h3>Outros eventos</h3>
             <div class="event-list-container">
-                <a href="https://www.iscte-iul.pt/eventos/3436/fista-2024-mundo-tecnologias-arquitetura-de-volta-iscte"><img src=https://www.iscte-iul.pt/assets/files/2024/01/16/1705400893101_fista24.JPG><br>FISTA 2024: o mundo das tecnologias e da arquitetura de volta ao Iscte</a><br>
-                <a href="https://www.iscte-iul.pt/eventos/3425/ciclo-internacional-de-conferencias-doutorais-espp-202324"><img src="https://www.iscte-iul.pt/assets/files/2024/01/12/1705078649207_2024_01_08_1704728741503_CICD_22_23_Fundo_sem_texto_landscape.png"><br>Ciclo Internacional de Conferências Doutorais da ESPP 2023/24</a><br>
-                <a href="https://www.iscte-iul.pt/eventos/3442/health-care-and-population-management-in-colonial-africa"><img src="https://www.iscte-iul.pt/assets/files/2024/01/22/1705926924207_Photograph_of_a_ceremony.jpg"><br>Health Care and Population Management in Colonial Africa</a><br>
-                <a href="https://www.iscte-iul.pt/eventos/3439/entrepreneurs-business-associations-and-rentier-capitalism-in-africa"><img src="https://www.iscte-iul.pt/assets/files/2024/01/19/1705666023022_cytonn_photography_n95VMLxqM2I_unsplash__2___2__Easy_Resize_com.jpg"><br>Entrepreneurs, business associations and rentier capitalism in Africa</a><br>
+                <figure>
+                    <a href="https://www.iscte-iul.pt/eventos/3436/fista-2024-mundo-tecnologias-arquitetura-de-volta-iscte">
+                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/16/1705400893101_fista24.JPG">
+                        <figcaption>FISTA 2024: o mundo das tecnologias e da arquitetura de volta ao Iscte</figcaption>
+                    </a>
+                </figure>
+                <figure>
+                    <a href="https://www.iscte-iul.pt/eventos/3425/ciclo-internacional-de-conferencias-doutorais-espp-202324">
+                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/12/1705078649207_2024_01_08_1704728741503_CICD_22_23_Fundo_sem_texto_landscape.png">
+                        <figcaption>Ciclo Internacional de Conferências Doutorais da ESPP 2023/24</figcaption>
+                    </a>
+                </figure>
+                <figure>
+                    <a href="https://www.iscte-iul.pt/eventos/3442/health-care-and-population-management-in-colonial-africa">
+                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/22/1705926924207_Photograph_of_a_ceremony.jpg">
+                        <figcaption>Health Care and Population Management in Colonial Africa</figcaption>
+                    </a>
+                </figure>
+                <figure>
+                    <a href="https://www.iscte-iul.pt/eventos/3439/entrepreneurs-business-associations-and-rentier-capitalism-in-africa">
+                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/19/1705666023022_cytonn_photography_n95VMLxqM2I_unsplash__2___2__Easy_Resize_com.jpg">
+                        <figcaption>Entrepreneurs, business associations and rentier capitalism in Africa</figcaption>
+                    </a>
+                </figure>
             </div>
         </section>
         <section class="generic-content-container" id="About">

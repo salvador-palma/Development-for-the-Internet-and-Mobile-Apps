@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     var studentDiv = document.getElementById("studentDiv");
     const themeButton = document.getElementById("theme-toggler");
     const iscteLogo = document.getElementById("iscteLogo");
-  
+
+    
     themeButton.addEventListener("click", function(){
       var currentTheme = htmlElement.getAttribute("data-theme");
       var newTheme = currentTheme === 'light' ? 'dark' : 'light';
@@ -18,42 +19,46 @@ document.addEventListener("DOMContentLoaded", () => {
       
     });
 
-    addStudent.addEventListener("click", function() {
+    try{
+      addStudent.addEventListener("click", function() {
 
-      var divs = document.querySelectorAll("#studentDiv > div");
+        var divs = document.querySelectorAll("#studentDiv > div");
+      
+        if (divs.length == 3) {
+          warningForm("Os grupos são no máximo de 3 alunos!"); return;
+        }
+  
+        var newElement = document.createElement("div");
+        newElement.innerHTML = `<img src="https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png">
+        <div>
+            <div class="input">
+                <input class="input-field" type="text" placeholder="" required>
+                <label class="input-label">Nome</label>
+            </div>
+            <div class="input">
+                <select class="input-field">
+                    <option>LEI</option>
+                    <option>LEI-PL</option>
+                    <option>IGE</option>
+                  </select>
+                <label class="input-label" >Curso</label>
+            </div>
+            <div class="input">
+                <input class="input-field" type="tel"  pattern="[0-9]{9}" placeholder="" required>
+                <label class="input-label">Tel</label>
+            </div>
+            <div class="input">
+                <input class="input-field" type="email" placeholder="" required>
+                <label class="input-label" for="">Email</label>
+            </div>
+        </div>
+        <img src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">
+          `;
+        studentDiv.appendChild(newElement);
+      });
+    }catch{}
     
-      if (divs.length == 3) {
-        warningForm("Os grupos são no máximo de 3 alunos!"); return;
-      }
-
-      var newElement = document.createElement("div");
-      newElement.innerHTML = `<img src="https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png">
-      <div>
-          <div class="input">
-              <input class="input-field" type="text" placeholder="" required>
-              <label class="input-label">Nome</label>
-          </div>
-          <div class="input">
-              <select class="input-field">
-                  <option>LEI</option>
-                  <option>LEI-PL</option>
-                  <option>IGE</option>
-                </select>
-              <label class="input-label" >Curso</label>
-          </div>
-          <div class="input">
-              <input class="input-field" type="number" placeholder="" required>
-              <label class="input-label">Numero</label>
-          </div>
-          <div class="input">
-              <input class="input-field" type="email" placeholder="" required>
-              <label class="input-label" for="">Email</label>
-          </div>
-      </div>
-      <img src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">
-        `;
-      studentDiv.appendChild(newElement);
-    });
+    
 
     
     var asideToggler = document.getElementById("aside-toggler");
@@ -70,10 +75,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    document.getElementById("project-form").addEventListener("invalid", function(event){
-      event.preventDefault();
-      warningForm("Preencha corretamente o formulario");
-    }, true);
+    try{
+      document.getElementById("project-form").addEventListener("invalid", function(event){
+        event.preventDefault();
+        warningForm("Preencha corretamente o formulario");
+      }, true);
+    }catch{}
 
     
   });

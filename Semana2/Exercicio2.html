@@ -30,7 +30,7 @@
         <section class="generic-content-container" id="ProjectSubmission">
             <h3>Submissao de Projetos</h3>
             
-            <form class="project-submission-form" title="Submissao de Projetos" action="Exercicio2_2.html">
+            <form class="project-submission-form" id="project-form" title="Submissao de Projetos" action="Exercicio2_2.html">
                 <fieldset id="generalInfo">
                     
                     <div class="input">
@@ -58,7 +58,6 @@
                 </fieldset>
                 <fieldset id="studentInfo">
                     <script src="main.js"></script>
-                    
                     <div id="studentDiv">
                         <div>
                             <img src="https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png">
@@ -87,6 +86,7 @@
                             <img src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">
                         </div>
                     </div>
+                    
                     <button id="addStudentButton" type="button"><img src="https://www.goodwin.edu/files/images/it/icon-new-user.png"></button>
                 </fieldset>  
                 <fieldset id="appointmentSchedule">
@@ -105,7 +105,7 @@
                     
                 </fieldset>
             
-    
+                <span id="form-console"></span>
                 <input type="submit" value="Submeter" style="grid-column-start: 1;grid-column-end: 3;">
     
     

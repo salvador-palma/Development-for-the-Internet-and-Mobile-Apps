@@ -215,6 +215,14 @@ main{
         }
 
     }
+
+    & #form-console{
+        color:red;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        text-align: center;
+        margin-top: 1%;
+    }
 }
 
 
@@ -343,7 +351,7 @@ input[type="file"]{
 
 input[value="Submeter"]{
     box-shadow:var(--box-shadow-ui);
-    margin-top: 3%;
+    margin-top: 1%;
     color:whitesmoke;
     font-size: 1em;
     font-weight: bolder;

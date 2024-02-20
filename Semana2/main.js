@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
       var divs = document.querySelectorAll("#studentDiv > div");
     
       if (divs.length == 3) {
-        alert("Os grupos são no máximo de 3 alunos!"); return;
+        warningForm("Os grupos são no máximo de 3 alunos!"); return;
       }
 
       var newElement = document.createElement("div");
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     var asideToggler = document.getElementById("aside-toggler");
     asideToggler.addEventListener("click", function(){
-      console.log("isAsideOn");
+      
       isAsideOn = !isAsideOn;
       const asidePanel = document.getElementById("asidePanel");
       const mainPanel = document.getElementById("mainPanel");
@@ -70,7 +70,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+    document.getElementById("project-form").addEventListener("invalid", function(event){
+      event.preventDefault();
+      warningForm("Preencha corretamente o formulario");
+    }, true);
 
+    
   });
 
 function removeDiv(img) {
@@ -80,6 +85,13 @@ function removeDiv(img) {
     if (divs.length > 1) {
       img.parentNode.parentNode.removeChild(img.parentNode);
     } else {
-      alert("O projeto tem que pertencer a pelo menos um aluno");
+      warningForm("O projeto tem que pertencer a pelo menos um aluno");
+     
     }
 }
+
+function warningForm(msg){
+  const asidePanel = document.getElementById("form-console");
+  asidePanel.innerText = msg;
+}
+

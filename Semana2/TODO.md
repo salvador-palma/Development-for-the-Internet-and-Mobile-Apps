@@ -4,24 +4,24 @@
 
 1.1 Done
 1.2 Done
-1.3 onde usar <article>?
-1.4 Perguntar se podemos usar <aside>> com um proposito diferente do pedido
-1.5 done
-1.6 done
-1.7 done
+1.3 Done
+1.4 Done
+1.5 Done
+1.6 Done
+1.7 Done
 
 #### Exercicio 2
 
-2.1 done
-2.2 
-    2.2.1 done
-    2.2.2 done
-    2.2.3 done (<select>)
-2.3 done
+2.1 Done
+2.2 Done
+    2.2.1 Done
+    2.2.2 Done
+    2.2.3 Done (<select>)
+2.3 Done
 
 #### Exercicio 3
 
-3.1 done
+3.1 Done
 3.2 
 3.3 
 3.4 

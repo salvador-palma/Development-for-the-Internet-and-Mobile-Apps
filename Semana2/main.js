@@ -4,6 +4,12 @@ var isAsideOn = false;
 
 const ISCTE_DAY = "https://keystoneacademic-res.cloudinary.com/image/upload/f_auto/q_auto/g_auto/w_auto/dpr_2.0/element/11/111946_3.jpg";
 const ISCTE_NIGHT = "ISCTENIGHT.png";
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const htmlElement = document.documentElement;
     var addStudent = document.getElementById("addStudentButton");

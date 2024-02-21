@@ -6,7 +6,7 @@
     <link rel="icon" type="image/x-icon" href="icon.png">
     <link rel="stylesheet" href="style.css">
     <script src="main.js"></script>
-    
+    <script defer src="animator.js"></script>
 </head>
 
 <body>
@@ -33,7 +33,11 @@
             </ul>
         </nav>
 
-        <button id="theme-toggler"> <img src="brightness_1.png"></button>
+        <div class="toggle-switch-container">
+            <img src="brightness_1.png">
+            <label class="toggle-switch" for="theme-toggler"><input id="theme-toggler" type="checkbox"><div></div> </label>
+        </div>
+       <!--<button id="theme-toggler"> <img src="brightness_1.png"></button> -->
     </aside>
     
     <main id="mainPanel">
@@ -45,61 +49,36 @@
                 <h4>Edicao 23/24</h4>
             </div>
         </div>
-        <section class="generic-content-container" id="SubmittedProjects">
+        <section class="generic-content-container hidden" id="SubmittedProjects">
             <h3>Projetos submetidos</h3>
             <table cellspacing="0" cellpadding="0">
                 <tr>
                   <th>Titulo</th>
                   <th>Descricao</th>
                   <th>Horario</th>
+                  <th>Avaliacao</th>
                 </tr>
                 <tr>
                   <td>Web-Site Rio de Mel</td>
                   <td>Web-Site e Base de Dados para a famosa churrascaria Rio de Mel</td>
                   <td>8:00-8:30</td>
+                  <td>19.5/20</td>
                 </tr>
                 <tr >
                   <td>JS Ludico</td>
                   <td>Pagina Web com jogos ludicos feitos em JavaScript</td>
                   <td>14:30-15:00</td>
+                  <td>17.6/20</td>
                 </tr>
                 <tr >
                     <td>Robot Inteligente Betano</td>
                     <td>Grandes ganhos monetários a um clique de distância!</td>
                     <td>14:00-14:30</td>
+                    <td>14/20</td>
                   </tr>
               </table>
         </section>
-        <section class="generic-content-container" id="OtherEvents">
-            <h3>Outros eventos</h3>
-            <div class="event-list-container">
-                <figure>
-                    <a href="https://www.iscte-iul.pt/eventos/3436/fista-2024-mundo-tecnologias-arquitetura-de-volta-iscte">
-                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/16/1705400893101_fista24.JPG">
-                        <figcaption>FISTA 2024: o mundo das tecnologias e da arquitetura de volta ao Iscte</figcaption>
-                    </a>
-                </figure>
-                <figure>
-                    <a href="https://www.iscte-iul.pt/eventos/3425/ciclo-internacional-de-conferencias-doutorais-espp-202324">
-                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/12/1705078649207_2024_01_08_1704728741503_CICD_22_23_Fundo_sem_texto_landscape.png">
-                        <figcaption>Ciclo Internacional de Conferências Doutorais da ESPP 2023/24</figcaption>
-                    </a>
-                </figure>
-                <figure>
-                    <a href="https://www.iscte-iul.pt/eventos/3442/health-care-and-population-management-in-colonial-africa">
-                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/22/1705926924207_Photograph_of_a_ceremony.jpg">
-                        <figcaption>Health Care and Population Management in Colonial Africa</figcaption>
-                    </a>
-                </figure>
-                <figure>
-                    <a href="https://www.iscte-iul.pt/eventos/3439/entrepreneurs-business-associations-and-rentier-capitalism-in-africa">
-                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/19/1705666023022_cytonn_photography_n95VMLxqM2I_unsplash__2___2__Easy_Resize_com.jpg">
-                        <figcaption>Entrepreneurs, business associations and rentier capitalism in Africa</figcaption>
-                    </a>
-                </figure>
-            </div>
-        </section>
-        <section class="generic-content-container" id="About">
+        <section class="generic-content-container hidden" id="About">
             <h3>Sobre o concurso</h3>
             <div id="contestInfo">
                 <figure class="prize">
@@ -131,6 +110,36 @@
             
     
         </section>
+        <section class="generic-content-container hidden" id="OtherEvents">
+            <h3>Outros eventos</h3>
+            <div class="event-list-container">
+                <figure>
+                    <a href="https://www.iscte-iul.pt/eventos/3436/fista-2024-mundo-tecnologias-arquitetura-de-volta-iscte">
+                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/16/1705400893101_fista24.JPG">
+                        <figcaption>FISTA 2024: o mundo das tecnologias e da arquitetura de volta ao Iscte</figcaption>
+                    </a>
+                </figure>
+                <figure>
+                    <a href="https://www.iscte-iul.pt/eventos/3425/ciclo-internacional-de-conferencias-doutorais-espp-202324">
+                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/12/1705078649207_2024_01_08_1704728741503_CICD_22_23_Fundo_sem_texto_landscape.png">
+                        <figcaption>Ciclo Internacional de Conferências Doutorais da ESPP 2023/24</figcaption>
+                    </a>
+                </figure>
+                <figure>
+                    <a href="https://www.iscte-iul.pt/eventos/3442/health-care-and-population-management-in-colonial-africa">
+                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/22/1705926924207_Photograph_of_a_ceremony.jpg">
+                        <figcaption>Health Care and Population Management in Colonial Africa</figcaption>
+                    </a>
+                </figure>
+                <figure>
+                    <a href="https://www.iscte-iul.pt/eventos/3439/entrepreneurs-business-associations-and-rentier-capitalism-in-africa">
+                        <img src="https://www.iscte-iul.pt/assets/files/2024/01/19/1705666023022_cytonn_photography_n95VMLxqM2I_unsplash__2___2__Easy_Resize_com.jpg">
+                        <figcaption>Entrepreneurs, business associations and rentier capitalism in Africa</figcaption>
+                    </a>
+                </figure>
+            </div>
+        </section>
+        
     </main>
     
     <footer>

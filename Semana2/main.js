@@ -1,21 +1,25 @@
 var Theme = {LIGHT: 'light' , DARK : 'dark'};
 var isAsideOn = false;
 
+
+const ISCTE_DAY = "https://keystoneacademic-res.cloudinary.com/image/upload/f_auto/q_auto/g_auto/w_auto/dpr_2.0/element/11/111946_3.jpg";
+const ISCTE_NIGHT = "ISCTENIGHT.png";
 document.addEventListener("DOMContentLoaded", () => {
     const htmlElement = document.documentElement;
     var addStudent = document.getElementById("addStudentButton");
     var studentDiv = document.getElementById("studentDiv");
     const themeButton = document.getElementById("theme-toggler");
     const iscteLogo = document.getElementById("iscteLogo");
-
+    const background_image = document.getElementById("BG");
     
     themeButton.addEventListener("click", function(){
       var currentTheme = htmlElement.getAttribute("data-theme");
       var newTheme = currentTheme === 'light' ? 'dark' : 'light';
       htmlElement.setAttribute("data-theme", newTheme); 
       
-      if(newTheme == "dark") iscteLogo.setAttribute("src", "Negative Logo.png");
-      else iscteLogo.setAttribute("src", "Logo.png");
+      if(newTheme == "dark"){iscteLogo.setAttribute("src", "Negative Logo.png"); background_image.setAttribute("src", ISCTE_NIGHT);} 
+      else{iscteLogo.setAttribute("src", "Logo.png"); background_image.setAttribute("src", ISCTE_DAY);} 
+
       
     });
 

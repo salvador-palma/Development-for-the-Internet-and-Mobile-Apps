@@ -154,7 +154,32 @@ main{
     transition: all ease 0.2s;
 }
 
+#Banner{
+    width: 100%;
+    text-align: center;
+    & > img{
+        box-shadow: var(--box-shadow-ui);
+        width: 100%;
+        height: auto;
+        aspect-ratio: 6/2;
+        object-fit: cover;
+        object-position: 50% 20%;
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0));
+    }
+    & > div {
+        width:100%;
+        color : whitesmoke;
+        position: relative;
+        
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -120%);
+        font-size: 2em;
+       
 
+        
+    }
+}
 
 
 .generic-content-container{
@@ -451,49 +476,80 @@ table{
     align-self: center;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: var(--box-shadow-ui);
+    padding-bottom:2%;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    overflow: hidden;
 }
 th{
-    background-color: var(--background-color-3);
+    
     color: var(--text-color-0);
-    padding: 5px 0 5px 0;
+    padding: 10px 0 10px 0;
 }
-th:first-child{
-    border-radius: 10px 0 0 0;
-}
-th:last-child{
-    border-radius: 0 10px 0 0;
-}
-tr{
-    background-color: var(--background-color-4);
+td{
+    
     border:none;
+    padding: 10px 5px 10px 1%;
     
 }
-tr:nth-child(odd) {
-    background-color: var(--background-color-5);
-    
+tr:nth-child(even){
+    background-color: rgb(237, 237, 237);
 }
 
-.prize-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+
+
+#contestInfo{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 10fr 2fr 2fr;
+    width: 70%;
+    height: auto;
+    aspect-ratio: 2/1;
+    margin: auto;
+
+   
+    & > .prize {
+        background-color: whitesmoke;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: var(--box-shadow-ui);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height:max-content;
+        transition: all ease 0.2s;
+        & > img {
+            height: 70%;
+            object-fit: cover;
+            aspect-ratio: 3/2;
+        }
+        & > figcaption {
+           padding-top: 10px;
+        }
+        &:hover{
+            transform: translateY(-5%);
+        }
+        
+        
+    }
+
+    & > .contest-info-container {
+        
+        text-align: center;
+
+    }
+    & > * {
+        margin: 10px;
+    }
+    & ol {
+        width: 65%;
+        margin: auto;
+    }
 }
-.prize-container img{
-    height: 15vw;
-    aspect-ratio: 4/3;
-    width:  auto;
-    object-fit: cover;
-    border-radius: 15px;
-}
-.prize-container div{
-    margin:2vw
-}
-.prize-container div:first-child{
-    transform: translate(0, 30px);
-}
-.prize-container div:last-child{
-    transform: translate(0, 60px);
-}
+
+
 
 
 

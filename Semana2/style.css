@@ -4,6 +4,7 @@ html[data-theme="light"]{
     --background-image-0: linear-gradient(45deg, #50bdc9, #5690f3);
     --background-image-1: linear-gradient(45deg, #225ea1, #5e98ce);
     --background-color-0: white;
+    --background-aside-color-0: whitesmoke;
     --background-color-1: rgb(255, 185, 185);
     --background-color-2: rgb(86, 144, 243);
     --background-color-3: #5690f3;
@@ -23,24 +24,25 @@ html[data-theme="light"]{
 
 html[data-theme="dark"] {
     color-scheme: dark;
-    --color-surface-0: #2c2c2c; /* Lightened black color */
-    --background-image-0: linear-gradient(45deg, #50bdc9, #5690f3); /* Darkened gradient */
-    --background-image-1: linear-gradient(45deg, #001b33, #004080); /* Darkened gradient */
-    --background-color-0: #000000; /* Darkened whitesmoke  003366*/
-    --background-color-1: #a83232; /* Darkened red color */
-    --background-color-2: #1a2d4d; /* Darkened blue color */
-    --background-color-3: #003366; /* Darkened blue color */
-    --background-color-4: #b8ccff; /* Darkened light blue color */
-    --background-color-5: #94b9ff; /* Darkened light blue color */
+    --color-surface-0: #2c2c2c; 
+    --background-image-0: linear-gradient(45deg, #50bdc9, #5690f3); 
+    --background-image-1: linear-gradient(45deg, #001b33, #004080); 
+    --background-color-0: #000000; 
+    --background-aside-color-0: rgb(28, 28, 28);
+    --background-color-1: #a83232;
+    --background-color-2: #1a2d4d;
+    --background-color-3: #003366;
+    --background-color-4: #b8ccff;
+    --background-color-5: #94b9ff; 
     --background-generic-container: rgb(35, 35, 34);
-    --text-color-0: rgb(232, 227, 227); /* Light text on dark background */
-    --box-shadow-color-0: rgba(0, 0, 0, 0.3); /* Darkened box shadow */
-    --box-shadow-color-1: rgba(0, 0, 0, 0.4); /* Darkened box shadow */
-    --box-shadow-color-2: rgba(26, 45, 77, 0.2); /* Darkened box shadow */
-    --box-shadow-color-3: rgba(26, 45, 77, 0.3); /* Darkened box shadow */
-    --button-shadow-color-0: rgba(46, 175, 239, 0.4); /* Darkened button shadow */
-    --button-shadow-color-1: rgba(46, 175, 239, 0.5); /* Darkened button shadow */
-    --border-color: rgb(57, 54, 54); /* Light border color on dark background */
+    --text-color-0: rgb(232, 227, 227); 
+    --box-shadow-color-0: rgba(0, 0, 0, 0.3); 
+    --box-shadow-color-1: rgba(0, 0, 0, 0.4); 
+    --box-shadow-color-2: rgba(26, 45, 77, 0.2); 
+    --box-shadow-color-3: rgba(26, 45, 77, 0.3); 
+    --button-shadow-color-0: rgba(46, 175, 239, 0.4); 
+    --button-shadow-color-1: rgba(46, 175, 239, 0.5); 
+    --border-color: rgb(57, 54, 54); 
   }
   
 html{
@@ -121,7 +123,7 @@ aside{
     z-index: 1; 
     top: 0; 
     right: 0;
-    background-color: var(--background-color-0); 
+    background-color: var(--background-aside-color-0); 
     overflow-x: hidden; 
     
     display:flex;
@@ -144,6 +146,7 @@ aside a:hover{
     
     color:var(--button-shadow-color-1);
     transition: all ease 0.2s;
+    transform: translateY(-2px) ;
 }
 aside nav {
     margin-top: 12vh;
@@ -379,24 +382,25 @@ button:hover, input[value="Submeter"]:hover{
     /*box-shadow: 0px 10px 7px 2px var(--box-shadow-color-3);*/
 }
 
-button[value="theme"] img {
-    width: 100%;
-}
-button[value="theme"]{
-    border: 1px solid var(--text-color-0);
+#theme-toggler{
+    transform: initial;
     padding: 5px;
     margin-left: auto;
     height: 50px;
     width: 50px;
-    background-color: var(--background-color-0);
+    background-color: var(--background-aside-color-0);
     border-radius: 5px;
-    box-shadow: 0px 0px 3px 0px var(--button-shadow-color-0);
-    transition: all 0.2s;
+    transition: all 5s;
+    transition: transform 2s;
+
+    & img{
+        width: 100%;
+    }
+    & :hover{
+        transform: scale(1.2);
+    }
 }
-button[value="theme"]:hover{
-    box-shadow: 0px 0px 5px 2px var(--button-shadow-color-1);
-    transform: translateY(0px);
-}
+
 
 
 

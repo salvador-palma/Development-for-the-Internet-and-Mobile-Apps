@@ -2,7 +2,7 @@
 <html data-theme = "light">
 <head>
     <meta charset="UTF-8">
-    <title>ISCTE-Mockup</title>
+    <title>ISCTE-IUL</title>
     <link rel="icon" type="image/x-icon" href="icon.png">
     <link rel="stylesheet" href="style.css">
     <script src="main.js"></script>
@@ -11,12 +11,9 @@
 
 <body>
     
-    <header class="header-container" id="headerPanel">
-        <a href="https://www.iscte-iul.pt/"><img id="iscteLogo" src="Logo.png" width="327px" height="96px"></a>
-        <button id="aside-toggler"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png"> </button>
-        <!-- <button id="theme-toggler" value="theme" > <img src="brightness_1.png"> </button>-->
-
-        
+    <header id="headerPanel">
+        <a href="https://www.iscte-iul.pt/"><img id="iscteLogo"  class="icon" src="Logo.png" width="327px" height="96px"></a>
+        <img  id="aside-toggler" class="icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png">    
     </header>
 
     <aside id="asidePanel">
@@ -37,7 +34,6 @@
             <img src="brightness_1.png">
             <label class="toggle-switch" for="theme-toggler"><input id="theme-toggler" type="checkbox"><div></div> </label>
         </div>
-       <!--<button id="theme-toggler"> <img src="brightness_1.png"></button> -->
     </aside>
     
     <main id="mainPanel">
@@ -49,7 +45,7 @@
                 <h4>Edicao 23/24</h4>
             </div>
         </div>
-        <section class="generic-content-container hidden" id="SubmittedProjects">
+        <section class="generic-content-container hidden">
             <h3>Projetos submetidos</h3>
             <table cellspacing="0" cellpadding="0">
                 <tr>
@@ -78,7 +74,7 @@
                   </tr>
               </table>
         </section>
-        <section class="generic-content-container hidden" id="About">
+        <section class="generic-content-container hidden">
             <h3>Sobre o concurso</h3>
             <div id="contestInfo">
                 <figure class="prize">
@@ -93,24 +89,34 @@
                     <img src="https://t4.ftcdn.net/jpg/00/93/95/53/360_F_93955356_FZ9R8X40BfTjP8ZXmcAxeMVVKQkoitDn.jpg">
                     <figcaption><strong>3o Premio</strong><p>5 Nuggets (sem molho)</p></figcaption>
                 </figure>
-                <article class="contest-info-container" style="grid-area: 2 / 1 / 1 span / 3 span;">
+                <div class="contest-info-container" style="grid-area: 2 / 1 / 1 span / 3 span;">
                     <h5>Juris</h5>
                     <p>Ana Leite, Pedro Pataniscas, Ricardo Guatemala</p>
-                </article>
-                <article class="contest-info-container" style="grid-area: 3 / 1 / 1 span / 3 span;">
+                </div>
+                <div class="contest-info-container" style="grid-area: 3 / 1 / 1 span / 3 span;">
                     <h5>Regras</h5>
                     <ol>
                         <li>O conteudo produzido tem de ser de autoria do grupo</li>
                         <li>Pelo menos um dos membros tem de ser aluno do ISCTE</li>
                         <li>E estritamente proibido conteudo que promova violencia</li>
                     </ol>
-                    
-                </article>
+                </div>
             </div>
             
     
         </section>
-        <section class="generic-content-container hidden" id="OtherEvents">
+        <section class="generic-content-container hidden">
+            <h3>Testemunhas</h3>
+            <div class="generic-card-container">
+                <p>&emsp;"Prepare-se para uma jornada fascinante através do mundo da tecnologia, onde mentes brilhantes convergem para apresentar suas ideias mais visionárias e soluções inovadoras. O Concurso de Projetos de Informática é um evento imperdível, onde os melhores e mais talentosos estudantes e profissionais da área se reúnem para competir, colaborar e inspirar.<br>
+                    &emsp;Durante o evento, você terá a oportunidade de explorar uma ampla gama de projetos, desde aplicativos móveis e sistemas web até soluções de inteligência artificial e segurança cibernética. Cada projeto representa horas de dedicação, pesquisa e desenvolvimento, demonstrando o talento e a paixão dos participantes pela informática.<br>
+                    &emsp;Além da competição, o evento oferece uma plataforma única para networking, onde os participantes podem interagir com líderes da indústria, professores especializados e outros entusiastas da tecnologia. É uma oportunidade excepcional para compartilhar ideias, aprender com os melhores e estabelecer conexões valiosas para o futuro.<br>
+                    &emsp;e você é um entusiasta da tecnologia, um profissional em busca de inspiração ou simplesmente curioso para ver o que o futuro da informática reserva, o Concurso de Projetos de Informática é o lugar onde você precisa estar. Junte-se a nós nesta celebração do talento e da inovação, e seja parte de uma comunidade apaixonada que está moldando o mundo digital de amanhã. Venha e seja inspirado!"<br><br>
+                -<i style="text-align: right;">ChatGPT</i>
+                </p>
+            </div>
+        </section>
+        <section class="generic-content-container hidden">
             <h3>Outros eventos</h3>
             <div class="event-list-container">
                 <figure>
@@ -140,9 +146,10 @@
             </div>
         </section>
         
+        
     </main>
     
-    <footer>
+    <footer id="footerPanel">
         <h4>Contacte-nos</h4>
         <a href="tel:+351217903000"><strong>Tlf:</strong> +351 217 903 000</a> <a href="mailto:geral@iscte.pt"><strong>Email:</strong> geral@iscte.pt</a>
     </footer>    

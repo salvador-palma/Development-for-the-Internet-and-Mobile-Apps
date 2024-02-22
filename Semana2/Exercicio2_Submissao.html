@@ -10,8 +10,8 @@
 
 <body>
     <header class="header-container" id="headerPanel">
-        <a href="https://www.iscte-iul.pt/"><img id="iscteLogo" src="Logo.png" width="327px" height="96px"></a>
-        <button id="aside-toggler"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png"> </button>
+        <a href="https://www.iscte-iul.pt/"><img id="iscteLogo"  class="icon" src="Logo.png" width="327px" height="96px"></a>
+        <img  id="aside-toggler" class="icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png">    
     </header>
     <aside id="asidePanel">
         <nav>
@@ -21,13 +21,16 @@
                 
             </ul>
         </nav>
-        <button id="theme-toggler" value="theme" > <img src="brightness_1.png"></button>
+        <div class="toggle-switch-container">
+            <img src="brightness_1.png">
+            <label class="toggle-switch" for="theme-toggler"><input id="theme-toggler" type="checkbox"><div></div> </label>
+        </div>
     </aside>
     <main id="mainPanel">
         <section class="generic-content-container" id="ProjectSubmission">
             <h3>Submissao de Projetos</h3>
             
-            <form class="project-submission-form" id="project-form" title="Submissao de Projetos" action="Exercicio2_2.html">
+            <form class="project-submission-form" id="project-form" title="Submissao de Projetos" action="Exercicio2_ProjectAccepted.html">
                 <fieldset id="generalInfo">
                     
                     <div class="input">
@@ -57,7 +60,7 @@
                     <script src="main.js"></script>
                     <div id="studentDiv">
                         <div>
-                            <img src="https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png">
+                            <img class="icon" src="https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png">
                             <div>
                                 <div class="input">
                                     <input class="input-field" type="text" placeholder="" required>
@@ -80,7 +83,7 @@
                                     <label class="input-label" for="">Email</label>
                                 </div>
                             </div>
-                            <img src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">
+                            <img class="icon" src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">
                         </div>
                     </div>
                     
@@ -112,7 +115,7 @@
         </section>
     </main>
     
-    <footer>
+    <footer id="footerPanel">
         <h4>Contacte-nos</h4>
         <a href="tel:+351217903000"><strong>Tlf:</strong> +351 217 903 000</a> <a href="mailto:geral@iscte.pt"><strong>Email:</strong> geral@iscte.pt</a>
     </footer>    

@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     var addStudent = document.getElementById("addStudentButton");
     var studentDiv = document.getElementById("studentDiv");
     const themeButton = document.getElementById("theme-toggler");
-    const iscteLogo = document.getElementById("iscteLogo");
     const background_image = document.getElementById("BG");
     
     themeButton.addEventListener("click", function(){
@@ -23,8 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
       var newTheme = currentTheme === 'light' ? 'dark' : 'light';
       htmlElement.setAttribute("data-theme", newTheme); 
       
-      if(newTheme == "dark"){iscteLogo.setAttribute("src", "Negative Logo.png"); background_image.setAttribute("src", ISCTE_NIGHT);} 
-      else{iscteLogo.setAttribute("src", "Logo.png"); background_image.setAttribute("src", ISCTE_DAY);} 
+
+      if(newTheme == "dark"){setIconTheme(true); background_image.setAttribute("src", ISCTE_NIGHT);} 
+      else{setIconTheme(false); background_image.setAttribute("src", ISCTE_DAY);} 
 
       
     });
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
   
         var newElement = document.createElement("div");
-        newElement.innerHTML = `<img src="https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png">
+        newElement.innerHTML = `<img class="icon" src="https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png">
         <div>
             <div class="input">
                 <input class="input-field" type="text" placeholder="" required>
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label class="input-label" for="">Email</label>
             </div>
         </div>
-        <img src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">
+        <img class="icon" src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">
           `;
         studentDiv.appendChild(newElement);
       });
@@ -78,9 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const asidePanel = document.getElementById("asidePanel");
       const mainPanel = document.getElementById("mainPanel");
       const headerPanel = document.getElementById("headerPanel");
+      const footerPanel = document.getElementById("footerPanel");
       asidePanel.style.width = isAsideOn ? "25%" : "0%";
       mainPanel.style.marginRight = isAsideOn ? "25%" : "0%";
       headerPanel.style.marginRight = isAsideOn ? "25%" : "0%";
+      footerPanel.style.marginRight = isAsideOn ? "25%" : "0%";
       
 
     });
@@ -110,5 +112,16 @@ function removeDiv(img) {
 function warningForm(msg){
   const asidePanel = document.getElementById("form-console");
   asidePanel.innerText = msg;
+}
+
+function setIconTheme(inverted){
+  let icons = document.querySelectorAll('.icon');
+  
+  if(inverted){
+    icons.forEach((el) => el.classList.add('inverted'));
+  }else{
+    icons.forEach((el) => el.classList.remove('inverted'));
+  }
+
 }
 

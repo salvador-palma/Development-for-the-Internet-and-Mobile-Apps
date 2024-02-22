@@ -22,6 +22,7 @@
 #### Exercicio 3
 
 3.1 Done
-3.2 
-3.3 
-3.4 
+3.2 Done
+3.3 Done
+3.4 Done
+

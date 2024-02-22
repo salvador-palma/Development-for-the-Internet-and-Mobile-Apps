@@ -5,7 +5,7 @@ var isAsideOn = false;
 const ISCTE_DAY = "https://keystoneacademic-res.cloudinary.com/image/upload/f_auto/q_auto/g_auto/w_auto/dpr_2.0/element/11/111946_3.jpg";
 const ISCTE_NIGHT = "ISCTENIGHT.png";
 
-
+var isDarkThemed  = false;
 
 
 
@@ -17,14 +17,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeButton = document.getElementById("theme-toggler");
     const background_image = document.getElementById("BG");
     
-    themeButton.addEventListener("click", function(){
-      var currentTheme = htmlElement.getAttribute("data-theme");
-      var newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      htmlElement.setAttribute("data-theme", newTheme); 
-      
+    
+    
+    try{
+      isDarkThemed = localStorage.getItem("isDarkMode") === 'true';
+      htmlElement.setAttribute("data-theme", isDarkThemed? 'dark' : 'light');   
+      setIconTheme(isDarkThemed);
+      themeButton.checked = isDarkThemed;
 
-      if(newTheme == "dark"){setIconTheme(true); background_image.setAttribute("src", ISCTE_NIGHT);} 
-      else{setIconTheme(false); background_image.setAttribute("src", ISCTE_DAY);} 
+      //This line throws an error whenever background_image is null, therefore keep it at the bottom of this try/catch block
+      background_image.setAttribute("src",  isDarkThemed? ISCTE_NIGHT : ISCTE_DAY); 
+    }catch{}
+    
+    
+
+    
+    themeButton.addEventListener("click", function(){
+      try{
+        var currentTheme = htmlElement.getAttribute("data-theme");
+        var newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        htmlElement.setAttribute("data-theme", newTheme); 
+        
+        isDarkThemed = newTheme === "dark";
+        
+        setIconTheme(isDarkThemed);
+        localStorage.setItem("isDarkMode", isDarkThemed);
+
+        console.log(isDarkThemed);
+        console.log("Memory: " + localStorage.getItem("isDarkMode"));
+
+        background_image.setAttribute("src",  isDarkThemed === true ? ISCTE_NIGHT : ISCTE_DAY);
+      }catch{}
+      
+      
 
       
     });
@@ -62,9 +87,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label class="input-label" for="">Email</label>
             </div>
         </div>
-        <img class="icon" src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">
-          `;
+        <img class="icon" src="https://cdn0.iconfinder.com/data/icons/octicons/1024/x-512.png" onclick="removeDiv(this)">`;
         studentDiv.appendChild(newElement);
+        setIconTheme(isDarkThemed);
       });
     }catch{}
     
@@ -73,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     var asideToggler = document.getElementById("aside-toggler");
     asideToggler.addEventListener("click", function(){
-      
       isAsideOn = !isAsideOn;
       const asidePanel = document.getElementById("asidePanel");
       const mainPanel = document.getElementById("mainPanel");
@@ -83,8 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
       mainPanel.style.marginRight = isAsideOn ? "25%" : "0%";
       headerPanel.style.marginRight = isAsideOn ? "25%" : "0%";
       footerPanel.style.marginRight = isAsideOn ? "25%" : "0%";
-      
-
     });
 
     try{

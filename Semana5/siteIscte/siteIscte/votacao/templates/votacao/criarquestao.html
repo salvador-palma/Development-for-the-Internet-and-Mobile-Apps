@@ -1,0 +1,9 @@
+Texto da nova Questao
+
+<form action="{% url 'votacao:criarquestao' %}" method="post">
+    {% csrf_token %}
+    <input name="questaotext" type="text">
+
+
+    <button>Gravar nova Questao</button>
+</form>

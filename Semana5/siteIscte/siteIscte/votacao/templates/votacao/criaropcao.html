@@ -1,0 +1,8 @@
+Texto da nova Opcao
+
+<form action="{% url 'votacao:criaropcao' questao.id %}" method="post">
+    {% csrf_token %}
+    <input name="opcaotext" type="text">
+
+    <button>Gravar nova Opcao</button>
+</form>

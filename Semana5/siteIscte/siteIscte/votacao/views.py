@@ -25,14 +25,21 @@ def resultados(request, questao_id):
 
 def voto(request, questao_id):
      questao = get_object_or_404(Questao, pk=questao_id)
+
      try:
          opcao_seleccionada = questao.opcao_set.get(pk=request.POST['opcao'])
      except (KeyError, Opcao.DoesNotExist):
-        return render(request, 'votacao/detalhe.html', {'questao': questao, 'error_message': "Não escolheu uma opção",})
+            return render(request, 'votacao/detalhe.html', {'questao': questao, 'error_message': "Não escolheu uma opção",})
      else:
-         opcao_seleccionada.votos += 1
-         opcao_seleccionada.save()
+        if (request.POST['action'] == 'Voto'):
+            opcao_seleccionada.votos += 1
+            opcao_seleccionada.save()
+        elif request.POST['action'] == 'Delete':
+            opcao_seleccionada.delete()
+            return HttpResponseRedirect(reverse('votacao:detalhe', args=(questao.id,)))
      return HttpResponseRedirect(reverse('votacao:resultados', args=(questao.id,)))
+
+
 
 def resultados(request, questao_id):
  questao = get_object_or_404(Questao, pk=questao_id)

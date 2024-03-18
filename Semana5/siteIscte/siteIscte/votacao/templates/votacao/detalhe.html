@@ -10,8 +10,8 @@
         <label for="opcao{{ forloop.counter }}">{{ opcao.opcao_texto }}</label>
         </br>
     {% endfor %}
-    <input type="submit" value="Voto" />
-    <input type="submit" value="Delete" />
+    <input type="submit" name="action" value="Voto" />
+    <input type="submit" name="action" value="Delete" />
 </form>
 <a href="{% url 'votacao:apagarquestao' questao.id %}">Apagar Questao</a>
 <br>

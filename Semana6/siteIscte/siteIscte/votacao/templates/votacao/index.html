@@ -1,0 +1,23 @@
+{% if request.user.is_authenticated %}
+<a href="{% url 'votacao:profile' %}">{{request.user.username}} </a> {{request.user.aluno.total_votos}} <br>
+<a href="{% url 'votacao:logoutview' %}">Log Out</a>
+{% else %}
+<a href="{% url 'votacao:signup' %}">Log In / Registar</a>
+{% endif %}
+{% if latest_question_list %}
+     <ul>
+         {% for questao in latest_question_list %}
+            <li>
+                <a href="{% url 'votacao:detalhe' questao.id %}">{{ questao.questao_texto }}</a>
+            </li>
+         {% endfor %}
+     </ul>
+{% else %}
+     <p>Nao ha questoes disponiveis.</p>
+{% endif %}
+
+
+{% if request.user.is_superuser %}
+<a href="{% url 'votacao:criarquestao' %}">Criar nova Questao</a>
+<br><br>
+{% endif %}

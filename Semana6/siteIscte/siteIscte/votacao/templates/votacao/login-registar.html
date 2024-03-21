@@ -1,0 +1,16 @@
+<form action="{% url 'votacao:signup' %}" method="post" style="width:25%; display:flex; flex-direction: column">
+    {% csrf_token %}
+    <input placeholder="username" name="username" type="text">
+    <input placeholder="email" name="email" type="email">
+    <input placeholder="password" name="password" type="password">
+    <input placeholder="curso" name="curso" type="text">
+
+    <input type="submit" name="action" value="Registar" />
+</form>
+<h5>ou</h5>
+<form action="{% url 'votacao:signup' %}" method="post" style="width:25%; display:flex; flex-direction: column" >
+    {% csrf_token %}
+    <input placeholder="username" name="username" type="text">
+    <input placeholder="password" name="password" type="password">
+    <input type="submit" name="action" value="Login" />
+</form>

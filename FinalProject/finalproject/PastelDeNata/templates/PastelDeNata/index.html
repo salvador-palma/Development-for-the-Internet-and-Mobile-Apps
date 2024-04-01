@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Pastel de Nata</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="{% static 'js/scrollBehaviours.js' %}"></script>
+</head>
+<body>
+    <img id="Background-Image" src="{% static 'images/Bakery.png' %}">
+    <header id="Header">
+        <div><span>•••</span>PASTEL DE NATA<span>•••</span></div>
+        {% if request.user.is_authenticated %}
+            <div class="hidden-header">Ola, <a>Salvador Palma</a><a class="icon" href="{% url 'PastelDeNata:sair' %}"><img src="{% static 'images/Logout.svg'%}"></a></div>
+        {% else %}
+            <a href="{% url 'PastelDeNata:registar' %}">Log in</a>
+        {% endif %}
+    </header>
+    <section id="Hero">
+        <div id="Hero-Title">
+            <h1>UM PEDAÇO DE TRADIÇÃO <br>A CADA DENTADA</h1>
+            <p>Plataforma de criticas e reviews <br> ao melhor bolo do mundo </p>
+
+            {% if request.user.is_authenticated %}
+                <button class="green-button">Ver Estabelecimentos</button>
+            {% else %}
+                <button class="green-button">LOG IN</button>
+            {% endif %}
+
+        </div>
+        <img id="Hero-PastelDeNata-Composition" src="{% static 'images/PastelDeNata.png' %}">
+    </section>
+    <main>
+        <section id="Review">
+            <img src = "{% static 'images/BrownBanner.svg' %}"/>
+            <h3>APRECIADOR DE PASTEL DE NATA?</h3>
+            <button class="green-button">Faca uma Review</button>
+        </section>
+    </main>
+
+</body>
+</html>

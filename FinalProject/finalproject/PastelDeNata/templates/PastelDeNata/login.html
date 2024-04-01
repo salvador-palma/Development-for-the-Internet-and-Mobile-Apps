@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Pastel de Nata</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/loginPanelAnimation.js' %}"></script>
+</head>
+<body>
+    <img id="Background-Image" src="{% static 'images/Bakery.png' %}">
+    <header id="Header">
+        <div><span>•••</span>PASTEL DE NATA<span>•••</span></div>
+    </header>
+    <div id="login-form">
+        <div id="LoginRegisterSwitchPanel" state="login">
+            <h1 class="sub textshadow">PRONTO PARA MAIS<br>UM PASTEL?</h1>
+            <img src="{% static 'images/PastelStack.png' %}">
+            <a onclick="SwitchLoginState()">Ainda nao tem conta?</a>
+        </div>
+        <form action="{% url 'PastelDeNata:registar' %}" method="post" >
+            {% csrf_token %}
+            <h1 class="inverse sub textshadow">BEM-VINDO DE VOLTA</h1>
+            <input placeholder="email" name="email" type="email">
+            <input placeholder="password" name="password" type="password">
+            <input class="green-button" type="submit" name="action" value="Login" />
+        </form>
+        <form action="{% url 'PastelDeNata:registar' %}" method="post">
+            {% csrf_token %}
+            <h1 class="inverse sub textshadow">VAMOS COMECAR</h1>
+            <input placeholder="Primeiro Nome" name="username" type="text">
+            <input placeholder="Ultimo Nome" name="lastname" type="text">
+            <input placeholder="email" name="email" type="email">
+            <input placeholder="password" name="password" type="password">
+
+            <input class="green-button" type="submit" name="action" value="Registar" />
+        </form>
+
+
+    </div>
+
+</body>
+</html>

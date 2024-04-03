@@ -8,12 +8,13 @@ class District(models.Model):
 
 class Enterprise(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    description = models.TextField()
-    address = models.CharField(max_length=100)
-    district = models.ForeignKey(District,on_delete=models.CASCADE)
+    description = models.TextField(null=True)
+    address = models.CharField(max_length=100, null=True)
+    district = models.ForeignKey(District,on_delete=models.CASCADE, null=True)
     #Campos calculados (para evitar demasiadas queries em runtime) 💕
     rating_amount = models.IntegerField(default=0)
-    rating_average = models.FloatField()
+    rating_average = models.FloatField(default=0)
+
 
 class Rating(models.Model):
     enterprise = models.ForeignKey(Enterprise,on_delete=models.CASCADE)

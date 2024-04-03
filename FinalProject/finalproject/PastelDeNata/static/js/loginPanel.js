@@ -4,15 +4,7 @@ const registerTitle = "A PRIMEIRA DENTADA<br>SABE MELHOR"
 const loginSuggestion ="Ainda nao tem conta?"
 const registerSuggestion = "Ja tem conta?"
 
-var onLogin = true;
-document.addEventListener("DOMContentLoaded", (event) => {
-
-    // const CoverLoginPanel = document.getElementById("LoginRegisterSwitchPanel");
-    // const SuggestionButton = document.getElementById("SuggestionLogin");
-    // SuggestionButton.addEventListener(onclick, function (){SwitchLoginState()})
-
-});
-
+var onLogin = true
 function SwitchLoginState(){
     const CoverLoginPanel = document.getElementById("LoginRegisterSwitchPanel");
 
@@ -26,4 +18,19 @@ function SwitchLoginState(){
         CoverLoginPanel.children[2].innerHTML=loginSuggestion
     }
     onLogin = !onLogin
+}
+
+
+
+function SwitchClientType(select){
+    const RegisterPanel = document.getElementById("Register-Panel");
+    var currentValue = select.value;
+
+    if(currentValue == "individual"){
+        RegisterPanel.children[1].placeholder = "Nome Completo"
+    }else{
+        RegisterPanel.children[1].placeholder = "Nome da Empresa"
+    }
+
+
 }

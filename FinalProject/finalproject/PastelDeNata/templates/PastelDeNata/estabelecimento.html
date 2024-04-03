@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Pastel de Nata</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="{% static 'js/scrollBehaviours.js' %}"></script>
+</head>
+<body>
+    <img id="Background-Image" src="{% static 'images/Bakery.png' %}">
+    <header id="Header">
+        <div><span>•••</span>PASTEL DE NATA<span>•••</span></div>
+        {% if request.user.is_authenticated %}
+            <div class="hidden-header">
+                {% if request.user.enterprise %}
+                    <a href="{% url 'PastelDeNata:companyprofile' request.user.enterprise.id %}">{{request.user.first_name}}</a>
+                {% else %}
+                    Ola, <a>{{request.user.first_name}}</a>
+                {% endif %}
+                <a class="icon" href="{% url 'PastelDeNata:sair' %}"><img src="{% static 'images/Logout.svg'%}"></a></div>
+        {% else %}
+            <a href="{% url 'PastelDeNata:registar' %}">Log in</a>
+        {% endif %}
+    </header>
+    <div id="company-card">
+        <div id="company-card-images">
+
+            {% if company_photos %}
+                    {% for photo in company_photos %}
+                        <img src= {{photo.href}} >
+                    {% endfor %}
+            {% else %}
+                <h4>Sem fotos...</h4>
+            {% endif %}
+        </div>
+        <div id="company-card-main">
+            <section id="company-card-main-info">
+                <h1 class="inverse">{{company.user.first_name}}</h1>
+                <h2 class="inverse">{{company.district.name}}, {{company.address}}</h2>
+                <div class="star-rating" style="width:10%;margin-top:1vw">
+                    {% for i in '01234'|make_list %}
+                        <img {% if forloop.counter0 < company.rating_average %} class="star-filled" {% endif %}
+                        src="{% static 'images/Star.svg' %}">
+                    {% endfor %}
+                    ({{company.rating_average}})
+                </div>
+
+                <span style="margin-top:3vw">{{company.description}}</span>
+
+            </section>
+            <section id="company-card-main-review">
+
+                {% if not request.user.enterprise %}
+                    <button class="green-button">REVIEW</button>
+                {% endif %}
+                {% if request.user.enterprise.id == company.id %}
+                    <a class="green-button" href="{% url 'PastelDeNata:companyprofileedit' request.user.enterprise.id %}">EDIT</a>
+
+                {% endif %}
+
+                {% if latest_reviews %}
+                    {% for review in latest_reviews %}
+                        <div class="review-card boxshadow">
+                            <img style="grid-area: icon" src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg">
+                            <h3 class="inverse" style="grid-area: name">{{review.user.first_name}}</h3>
+                            <h4 class="inverse" style="grid-area: date; opacity: 0.5">{{ review.date|date:"d M. Y" }}</h4>
+                            <div class="star-rating" style="grid-area: rating">
+                                {% for i in '01234'|make_list %}
+                                    <img {% if forloop.counter0 < review.value %} class="star-filled" {% endif %}
+                                         src="{% static 'images/Star.svg' %}">
+                                {% endfor %}
+                            </div>
+                            <p style="grid-area: review;">{{ review.review }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <h4>Sem reviews...</h4>
+                {% endif %}
+
+            </section>
+        </div>
+    </div>
+
+</body>
+</html>

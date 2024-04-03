@@ -7,20 +7,36 @@
     src: url('/static/fonts/Karla-VariableFont_wght.ttf');
 }
 
-
 html{
     overflow-x: hidden;
+    box-sizing: border-box;
 }
+* {box-sizing: inherit;}
+
 body{
     font-family: Karla;
     color:whitesmoke;
+    background-color: #0F1112;
     width:100%;
     position: absolute;
     margin:0;
     padding: 0;
 }
 a{color:whitesmoke}
+fieldset{border:none; padding:0;}
+fieldset input,select,textarea {
+    width:100%;
+    border-radius: 25px;
+    border: 2px #250202 solid;
+    margin-top: 0.6vw;
+    background-color: transparent;
+    padding:0.7vw;
+}
+textarea{
+    resize: none;
+}
 header{
+
     z-index: 2;
     display: flex;
     justify-content:  space-between;
@@ -37,25 +53,18 @@ header{
         transition: all 1s ease;
         transform: translateX(calc(50vw - 50%));
     }
-    & > .hidden-header {
-        display: none;
-
-    }
-    & span{
-        font-family: 'Courier New', Courier, monospace;
-    }
-
+    & > .hidden-header {display: none;}
+    & span{font-family: 'Courier New', Courier, monospace;}
     &.Header-Simplified{
-        background-color: #250202;
-        & > * {
-            margin: 0 5vw;
-            transform: translateX(0);
-        }
-        & > .hidden-header {
-            display: inline;
 
-        }
+        background-color: #250202;
+        & > * {margin: 0 5vw; transform: translateX(0);}
+        & > .hidden-header {display: inline;}
     }
+}
+a.green-button{
+        text-align: center;
+        text-decoration: none;
 }
 .green-button{
     background-color: green;
@@ -69,10 +78,10 @@ header{
     font-size: 1.2vw;
     font-weight: bold;
     color: white;
-    &:hover{
-        transform: translateY(-5px);
-    }
+
+    &:hover{transform: translateY(-5px);}
 }
+
 .icon{
     margin: 0 1vw;
     & > img {
@@ -89,18 +98,35 @@ header{
 .textshadow{
     text-shadow: rgba(0,0,0,0.25) 0 4px 4.9px ;
 }
-h1{
-    color:whitesmoke;
-    font-weight: 800;
-    font-size: 2.5vw;
-    &.inverse{
-        color:#2F0705;
-    }
-    &.sub{
-        font-size: 2vw;
-        margin:0;
+.boxshadow{
+    box-shadow: rgba(0,0,0,0.25) 0 4px 4.9px ;
+}
+.star-rating{
+    display: flex;
+    & > img {
+        width: calc(100% /5);
+        height: auto;
+        aspect-ratio: 1;
+        &.star-filled{
+            filter: brightness(0) saturate(100%) invert(59%) sepia(99%) saturate(404%) hue-rotate(349deg) brightness(100%) contrast(91%);
+        }
     }
 }
+h1,h2,h3,h4,h5,h6{ &:not(.default){
+    margin: 0;
+    color:whitesmoke;
+}}
+.transparent-button{
+    border: none;
+    background-color: transparent;
+}
+.inverse{color:#2F0705;}
+h1{
+    font-weight: 800;
+    font-size: 2.5vw;
+    &.sub{font-size: 2vw;}
+}
+p:not(.default){margin:0}
 
 #login-form{
     margin: auto;
@@ -126,17 +152,11 @@ h1{
         & > * {
             width:70%;
         }
-        & > input:not(.green-button) {
-            border-radius: 500px;
-            border: 2px #250202 solid;
-            background-color: transparent;
-            padding:0.7vw;
-        }
     }
     #LoginRegisterSwitchPanel{
         z-index: 1;
         position: absolute;
-        height:25vw;
+        height:100%;
         background-color: #F3A128;
         padding:2.5vw 0;
         transition: all 0.2s ease;
@@ -158,6 +178,72 @@ h1{
     }
 }
 
+#company-card{
+    display:flex;
+    width:85vw;
+    margin: 7vw auto;
+    min-height: 45vw;
+    overflow: hidden;
+    border-radius: 15px;
+    &  #company-card-images{
+        background-color: #F3A128;
+        padding: 1vw 1vw;
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+
+        & > img {
+            border-radius: 10px;
+            width:80%;
+            margin-top:10%;
+            object-fit: cover;
+            aspect-ratio: 1;
+        }
+    }
+    &  #company-card-main{
+        color:#250202;
+        background-color: #FFF3E0;
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        padding: 1vw 3vw;
+        & > section {
+            display: flex;
+            flex-direction: column;
+        }
+        & > #company-card-main-review{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            margin-top: 5vw;
+            padding: 1vw 3vw;
+
+            & > * {margin: 1vw 0}
+            & > .review-card{
+                padding: 2%;
+                display:grid;
+                width: 100%;
+                min-height: 15vw;
+                grid-template-columns: 3fr 15fr 2fr;
+                grid-template-rows: 2vw 2vw auto;
+                grid-template-areas:"icon name rating""icon date ."". review review";
+
+                border-radius: 15px;
+                background-color: #FFF0DA;
+
+                transition: all 0.2s ease;
+                & > img {width: 75%;border-radius: 500px}
+                &:hover {
+                    transform: translateY(-5px);
+                }
+            }
+        }
+    }
+
+}
 
 #Background-Image{
     position: fixed;
@@ -173,7 +259,7 @@ h1{
     align-items: center;
     color:whitesmoke;
     padding-bottom: 17vw;
-
+    margin-top: 7vw;
     font-family: Karla;
 
     & p{
@@ -186,7 +272,6 @@ h1{
         height: 25vw;
     }
 }
-
 #Review{
     transform: translateY(-26%);
     display: flex;

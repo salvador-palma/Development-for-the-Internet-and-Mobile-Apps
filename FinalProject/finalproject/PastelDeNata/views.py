@@ -14,7 +14,9 @@ from PastelDeNata.models import District
 
 
 def index(request):
-    return render(request, 'PastelDeNata/index.html')
+    companies = Enterprise.objects.all().order_by('rating_average')
+    districts = District.objects.all().order_by('name')
+    return render(request, 'PastelDeNata/index.html',{'companies': companies, "districts": districts})
 def registar(request):
     if request.method == 'POST':
         if request.POST['action'] == 'Login':
@@ -74,7 +76,7 @@ def companyprofile(request, company_id):
 
 
 
-# ========= H E L P F U L    F U N C T I O N S ========== #
+# ========= 👾 H E L P F U L    F U N C T I O N S 🧩 ========== #
 
 def update_company_photos(company, href_list):
     existing_photos = Photo.objects.filter(enterprise = company)
@@ -89,3 +91,31 @@ def update_company_photos(company, href_list):
     new_hrefs = provided_href_set - existing_href_set
     for href in new_hrefs:
         Photo.objects.create(enterprise=company, href=href).save()
+
+def get_all_companies(request):
+
+    district = request.GET['district']
+    search_str = request.GET['search_str']
+    sorting_mode = request.GET['sorting_mode']
+
+    results = Enterprise.objects.all()
+    if search_str != " ":
+        results = results.filter(user__first_name__contains=search_str)
+    if district != "Portugal Inteiro":
+        results = results.filter(district__name=district)
+
+    # Nao vale a pena otimizar, Python 3.9 nao tem switch/match 🙃💔
+    if sorting_mode == 'RAT_ASC':
+        results = results.order_by('rating_average')
+    elif sorting_mode == 'RAT_DESC':
+        results = results.order_by('-rating_average')
+    elif sorting_mode == 'REV_ASC':
+        results = results.order_by('rating_amount')
+    elif sorting_mode == 'REV_DESC':
+        results = results.order_by('-rating_amount')
+    elif sorting_mode == 'ALF_ASC':
+        results = results.order_by('user__first_name')
+    elif sorting_mode == 'ALF_DESC':
+        results = results.order_by('-user__first_name')
+
+    return render(request, 'PastelDeNata/company_table.html',{'companies': results,})

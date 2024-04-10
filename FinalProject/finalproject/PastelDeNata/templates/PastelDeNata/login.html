@@ -1,21 +1,14 @@
+{% extends "./abstract.html" %}
+{% load static %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>Pastel de Nata</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block scripts %}
     <script src="{% static 'js/loginPanel.js' %}"></script>
-</head>
-<body>
-    <img id="Background-Image" src="{% static 'images/Bakery.png' %}">
-    <header id="Header">
-        <div><span>•••</span>PASTEL DE NATA<span>•••</span></div>
-    </header>
+{% endblock %}
+
+{% block content %}
     <div id="login-form">
         <div id="LoginRegisterSwitchPanel" state="login">
-            <h1 class="sub textshadow">PRONTO PARA MAIS<br>UM PASTEL?</h1>
+            <h1 class="sub textshadow" >PRONTO PARA MAIS<br>UM PASTEL?</h1>
             <img src="{% static 'images/PastelStack.png' %}">
             <a onclick="SwitchLoginState()">Ainda nao tem conta?</a>
         </div>
@@ -24,9 +17,9 @@
             <h1 class="inverse sub textshadow">BEM-VINDO DE VOLTA</h1>
 
             <fieldset>
-                <input placeholder="email" name="email" type="email">
+                <input class="styled-input" placeholder="email" name="email" type="email">
 
-                <input placeholder="password" name="password" type="password">
+                <input class="styled-input" placeholder="password" name="password" type="password">
             </fieldset>
             <input class="green-button" type="submit" name="action" value="Login" />
 
@@ -35,19 +28,15 @@
             {% csrf_token %}
             <h1 class="inverse sub textshadow">VAMOS COMECAR</h1>
             <fieldset id="Register-Panel">
-                <select name="clientType" onchange="SwitchClientType(this)">
+                <select class="styled-input" name="clientType" onchange="SwitchClientType(this)">
                     <option value="individual">Individual</option>
                     <option value="company">Empresa</option>
                 </select>
-                <input class="input-fill" placeholder="Nome Completo" name="username" type="text">
-                <input placeholder="E-mail" name="email" type="email">
-                <input placeholder="Password" name="password" type="password">
+                <input class="input-fill styled-input" placeholder="Nome Completo" name="username" type="text">
+                <input class="styled-input" placeholder="E-mail" name="email" type="email">
+                <input class="styled-input" placeholder="Password" name="password" type="password">
             </fieldset>
             <input class="green-button" type="submit" name="action" value="Registar" />
         </form>
-
-
     </div>
-
-</body>
-</html>
+{% endblock %}

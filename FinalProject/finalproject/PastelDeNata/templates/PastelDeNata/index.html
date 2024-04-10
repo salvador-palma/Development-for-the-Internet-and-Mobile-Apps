@@ -1,30 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>Pastel de Nata</title>
+{% extends "./abstract.html" %}
+{% load static %}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="{% static 'js/scrollBehaviours.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <img id="Background-Image" src="{% static 'images/Bakery.png' %}">
-    <header id="Header">
-        <div><span>•••</span>PASTEL DE NATA<span>•••</span></div>
-        {% if request.user.is_authenticated %}
-            <div class="hidden-header">
-                {% if request.user.enterprise %}
-                    <a href="{% url 'PastelDeNata:companyprofile' request.user.enterprise.id %}">{{request.user.first_name}}</a>
-                {% else %}
-                    Ola, <a>{{request.user.first_name}}</a>
-                {% endif %}
-                <a class="icon" href="{% url 'PastelDeNata:sair' %}"><img src="{% static 'images/Logout.svg'%}"></a></div>
-        {% else %}
-            <a href="{% url 'PastelDeNata:registar' %}">Log in</a>
-        {% endif %}
-    </header>
+{% block scripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="{% static 'js/scrollBehaviours.js' %}"></script>
+        <!-- THIS SCRIPT NEEDS TO BE HERE IN ORDER TO COMBINE DJANGO/AJAX -->
+        <script>
+            var district = "Portugal Inteiro"
+            var sorting_mode = "RAT_DESC"
+            var search_string = " "
+            $(document).ready(function () {
+
+                $('#Location').change(function() {
+                    district = $(this).val();
+                    LoadTable();
+                });
+                $('#Sorting').change(function() {
+                    sorting_mode = $(this).val();
+                    LoadTable();
+                });
+                $('#SearchStr').keypress(function(event) {
+                    if (event.key === 'Enter') {
+                      search_string = $(this).val();
+                      LoadTable();
+                    }
+                });
+                LoadTable();
+            });
+
+            function LoadTable(){
+
+                $.ajax({
+                    url: "{% url 'PastelDeNata:get_all_companies' %}",
+                    data: {
+                        'district': district,
+                        'search_str': search_string,
+                        'sorting_mode': sorting_mode
+                    },
+                    success: function (response) {
+                        $("#company-grid").html(response);
+                    }
+                });
+            }
+        </script>
+{% endblock %}
+
+
+{% block content %}
     <section id="Hero">
         <div id="Hero-Title">
             <h1 class="default">UM PEDAÇO DE TRADIÇÃO <br>A CADA DENTADA</h1>
@@ -33,7 +55,7 @@
             {% if request.user.is_authenticated %}
                 <button class="green-button">Ver Estabelecimentos</button>
             {% else %}
-                <button class="green-button">LOG IN</button>
+                <a href="{% url 'PastelDeNata:registar' %}" class="green-button hoverable">LOG IN</a>
             {% endif %}
         </div>
         <img id="Hero-PastelDeNata-Composition" src="{% static 'images/PastelDeNata.png' %}">
@@ -74,55 +96,13 @@
                 </div>
             </div>
             <div id="company-grid-scrollview">
-
                 <div id="company-grid">
                     <!-- INSERT COMPANIES HERE -->
                 </div>
             </div>
 
-
         </section>
     </main>
+{% endblock %}
 
-</body>
-</html>
 
-<!-- THIS SCRIPT NEEDS TO BE HERE IN ORDER TO COMBINE DJANGO/AJAX -->
-<script>
-    var district = "Portugal Inteiro"
-    var sorting_mode = "RAT_DESC"
-    var search_string = " "
-    $(document).ready(function () {
-
-        $('#Location').change(function() {
-            district = $(this).val();
-            LoadTable();
-        });
-        $('#Sorting').change(function() {
-            sorting_mode = $(this).val();
-            LoadTable();
-        });
-        $('#SearchStr').keypress(function(event) {
-            if (event.key === 'Enter') {
-              search_string = $(this).val();
-              LoadTable();
-            }
-        });
-        LoadTable();
-    });
-
-    function LoadTable(){
-
-        $.ajax({
-            url: "{% url 'PastelDeNata:get_all_companies' %}",
-            data: {
-                'district': district,
-                'search_str': search_string,
-                'sorting_mode': sorting_mode
-            },
-            success: function (response) {
-                $("#company-grid").html(response);
-            }
-        });
-    }
-</script>

@@ -12,5 +12,5 @@ urlpatterns = [
     path('<int:questao_id>/apagarquestao', views.apagarquestao, name='apagarquestao'),
     path("signup", views.signup, name='signup'),
     path("logoutview", views.logoutview, name='logoutview'),
-    path("profile", views.profile, name='profile')
+    path("profile", views.profile, name='profile'),
 ]

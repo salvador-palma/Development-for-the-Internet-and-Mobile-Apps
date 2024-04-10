@@ -42,3 +42,12 @@ nav{
     flex-direction: column;
     & > * {margin-top: 1vw}
 }
+
+.profile-picture{
+    max-width: 100%;
+    min-width: 8vw;
+    aspect-ratio: 1;
+    padding: 1vw;
+    box-sizing: border-box;
+    border-radius: 500px;
+}

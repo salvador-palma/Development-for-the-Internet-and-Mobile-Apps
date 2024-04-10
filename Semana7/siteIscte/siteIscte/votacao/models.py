@@ -25,4 +25,5 @@ class Opcao(models.Model):
 class Aluno(models.Model):
      user = models.OneToOneField(User, on_delete=models.CASCADE)
      curso = models.CharField(max_length=100)
+     avatar = models.CharField(max_length=25, default="AvatarDefault")
      total_votos = models.IntegerField(default=0)

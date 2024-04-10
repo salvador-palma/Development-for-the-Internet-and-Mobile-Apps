@@ -1,22 +1,37 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.http import Http404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from .models import Questao, Opcao, Aluno
+from django.core.files.storage import FileSystemStorage
 
+@login_required(login_url=reverse_lazy('votacao:signup'))
+def profile(request):
+    if request.method == 'POST' and request.FILES.get('myfile') is not None :
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        current_avatar = request.user.aluno.avatar
+        if current_avatar != "AvatarDefault":
+            fs.delete(request.user.aluno.avatar)
+
+        fs.save("Avatar" + str(request.user.id), myfile)
+        request.user.aluno.avatar = "Avatar" + str(request.user.id)
+        request.user.aluno.save()
+
+    return render(request, 'votacao/profile.html')
 
 def index(request):
   latest_question_list = Questao.objects.order_by('-pub_data')[:5]
   context = {'latest_question_list': latest_question_list,}
   return render(request, 'votacao/index.html', context)
 
-def profile(request):
-    return render(request, 'votacao/profile.html')
+@login_required(login_url=reverse_lazy('votacao:signup'))
 def detalhe(request, questao_id):
  questao = get_object_or_404(Questao, pk=questao_id)
  return render(request, 'votacao/detalhe.html',
@@ -26,6 +41,7 @@ def resultados(request, questao_id):
  response = "Estes sao os resultados da questao %s."
  return HttpResponse(response % questao_id)
 
+@permission_required('votacao.change_opcao', login_url=reverse_lazy('votacao:fazer_login'))
 def voto(request, questao_id):
      questao = get_object_or_404(Questao, pk=questao_id)
 

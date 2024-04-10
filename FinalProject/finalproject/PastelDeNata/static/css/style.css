@@ -114,6 +114,7 @@ header {
 a.green-button {
     text-align: center;
     text-decoration: none;
+    padding: 1vw 3vw;
 }
 
 .green-button {
@@ -182,7 +183,6 @@ h4,
 h5,
 h6 {
     color: whitesmoke;
-
     &:not(.default) {
         margin: 0;
 
@@ -201,10 +201,10 @@ h6 {
 
 h1 {
     font-weight: 800;
-    font-size: 2.5vw;
+    font-size: 2vw;
 
     & .sub {
-        font-size: 2vw;
+        font-size: 1.5vw;
     }
 
 }

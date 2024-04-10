@@ -8,4 +8,14 @@ Username: {{request.user.username}} <br>
 Email: {{request.user.email}} <br>
 Curso: {{request.user.aluno.curso}} <br>
 Total de Votos: {{request.user.aluno.total_votos}} <br>
+
+<form method="post" enctype="multipart/form-data" action="{% url 'votacao:profile' %}">
+    <fieldset>
+        {% csrf_token %}
+        Alterar foto de Perfil
+        <input type="file" name="myfile">
+        <input type="submit" value="Upload">
+    </fieldset>
+</form>
+
 {% endblock %}

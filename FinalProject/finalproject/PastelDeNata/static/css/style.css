@@ -52,9 +52,9 @@ fieldset {
     padding: 0;
 }
 
-fieldset input,
-fieldset select,
-fieldset textarea {
+input.styled-input,
+select.styled-input,
+textarea.styled-input {
     width: 100%;
     border-radius: 25px;
     border: 2px #250202 solid;
@@ -266,12 +266,12 @@ p:not(.default) {
 
     }
 
-    & .hidden {
-        display: none;
-    }
+
 
 }
-
+.hidden {
+        display: none;
+    }
 #company-card {
     display: flex;
     width: 85vw;
@@ -321,9 +321,16 @@ p:not(.default) {
             padding: 1vw 3vw;
 
             &>* {
-                margin: 1vw 0
+                margin: 1vw 0;
             }
+             & > #company-card-main-review-form{
+                height: 20vw;
+                width:100%;
+                & > textarea{width:75%; height:80%}
+                  & > * {margin-top:1vw;}
 
+
+               }
             &>.review-card {
                 padding: 2%;
                 display: grid;

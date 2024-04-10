@@ -1,0 +1,53 @@
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'votacao/css/style.css' %}">
+</head>
+<body>
+    <header>
+            <strong>{% block titulo %} SISTEMA DE VOTOS ISCTE {% endblock %}</strong>
+
+    </header>
+    <aside>
+        {% if request.user.is_authenticated %}
+            Ola, {{request.user.username}} {% if not request.user.is_superuser %} (votos: {{request.user.aluno.total_votos}}) {% endif %}<br>
+        {% else %}
+            <i>Conta Anonima</i>
+        {% endif %}
+        <nav>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'votacao:profile' %}">Perfil </a>
+            <a href="{% url 'votacao:logoutview' %}">Log Out</a>
+            {% else %}
+            <a href="{% url 'votacao:signup' %}">Log In / Registar</a>
+            {% endif %}
+            <a href="{% url 'votacao:index' %}">Menu</a>
+
+        </nav>
+    </aside>
+    <main>
+        <img src="{% static 'votacao/img/banner.jpg' %}" id="banner">
+        {% block conteudo %}
+            {% if latest_question_list %}
+             <ul>
+                 {% for questao in latest_question_list %}
+                    <li>
+                        <a href="{% url 'votacao:detalhe' questao.id %}">{{ questao.questao_texto }}</a>
+                    </li>
+                 {% endfor %}
+             </ul>
+            {% else %}
+                 <p>Nao ha questoes disponiveis.</p>
+            {% endif %}
+        {% endblock %}
+
+        {% block opcoes %}
+                {% if request.user.is_superuser %}
+                <a href="{% url 'votacao:criarquestao' %}">Criar nova Questao</a>
+            {% endif %}
+        {% endblock %}
+
+    </main>
+
+
+</body>
+

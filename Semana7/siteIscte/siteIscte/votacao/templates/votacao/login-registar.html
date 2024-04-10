@@ -1,0 +1,21 @@
+{% extends "./index.html" %}
+
+
+{% block conteudo %}
+<form action="{% url 'votacao:signup' %}" method="post">
+    {% csrf_token %}
+    <input placeholder="username" name="username" type="text">
+    <input placeholder="email" name="email" type="email">
+    <input placeholder="password" name="password" type="password">
+    <input placeholder="curso" name="curso" type="text">
+
+    <input type="submit" name="action" value="Registar" />
+</form>
+<h5 style="text-align: center;">ou</h5>
+<form action="{% url 'votacao:signup' %}" method="post">
+    {% csrf_token %}
+    <input placeholder="username" name="username" type="text">
+    <input placeholder="password" name="password" type="password">
+    <input type="submit" name="action" value="Login" />
+</form>
+{% endblock %}

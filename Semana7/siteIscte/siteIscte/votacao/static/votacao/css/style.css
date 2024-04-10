@@ -1,0 +1,44 @@
+body{
+    margin:0;
+    text-align: center;
+}
+header{
+    padding-top: 1vw;
+    min-height: 2vw;
+    width:100%;
+    background-color: #8092A0;
+    color:white;
+    text-align: center;
+}
+#banner{
+    width:100%;
+    aspect-ratio: 4;
+    object-fit: cover;
+    margin-bottom: 2vw;
+}
+
+form{
+    display:flex;
+    flex-direction: column;
+    width:30%;
+    margin:auto;
+}
+main{
+    width:85%;
+    float:left;
+
+}
+aside{
+    text-align: center;
+    background-color: #E0DBD7;
+    width:15%;
+    float:left;
+    min-height:100vh;
+    padding-top: 2vw;
+}
+nav{
+    padding-top: 2vw;
+    display:flex;
+    flex-direction: column;
+    & > * {margin-top: 1vw}
+}

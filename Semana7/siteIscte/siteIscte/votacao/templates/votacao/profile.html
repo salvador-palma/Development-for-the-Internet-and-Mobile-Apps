@@ -1,0 +1,11 @@
+{% extends "./index.html" %}
+
+{% block titulo %}
+SISTEMA DE VOTOS ISCTE - PERFIL
+{% endblock %}
+{% block conteudo %}
+Username: {{request.user.username}} <br>
+Email: {{request.user.email}} <br>
+Curso: {{request.user.aluno.curso}} <br>
+Total de Votos: {{request.user.aluno.total_votos}} <br>
+{% endblock %}

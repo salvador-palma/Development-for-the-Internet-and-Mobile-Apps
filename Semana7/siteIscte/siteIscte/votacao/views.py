@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader
-from django.http import Http404
 from django.urls import reverse, reverse_lazy
 
 from .models import Questao, Opcao, Aluno
@@ -38,10 +36,10 @@ def detalhe(request, questao_id):
                {'questao': questao,})
 
 def resultados(request, questao_id):
- response = "Estes sao os resultados da questao %s."
- return HttpResponse(response % questao_id)
+ questao = get_object_or_404(Questao, pk=questao_id)
+ return render(request,'votacao/resultados.html',{'questao': questao})
 
-@permission_required('votacao.change_opcao', login_url=reverse_lazy('votacao:fazer_login'))
+@login_required(login_url=reverse_lazy('votacao:signup'))
 def voto(request, questao_id):
      questao = get_object_or_404(Questao, pk=questao_id)
 
@@ -57,18 +55,17 @@ def voto(request, questao_id):
             opcao_seleccionada.save()
             request.user.aluno.total_votos += 1
             request.user.aluno.save()
-        elif request.POST['action'] == 'Delete':
+        elif request.POST['action'] == 'Delete' and request.user.has_perm('votacao.delete_opcao'):
             opcao_seleccionada.delete()
             return HttpResponseRedirect(reverse('votacao:detalhe', args=(questao.id,)))
      return HttpResponseRedirect(reverse('votacao:resultados', args=(questao.id,)))
 
 
 
-def resultados(request, questao_id):
- questao = get_object_or_404(Questao, pk=questao_id)
- return render(request,'votacao/resultados.html',{'questao': questao})
 
 
+
+@permission_required('votacao.add_questao', login_url=reverse_lazy('votacao:signup'))
 def criarquestao(request):
     if request.method == 'POST':
         questao_texto = request.POST['questaotext']
@@ -77,6 +74,7 @@ def criarquestao(request):
         return HttpResponseRedirect(reverse('votacao:index'))
     return render(request,'votacao/criarquestao.html')
 
+@permission_required('votacao.add_opcao', login_url=reverse_lazy('votacao:signup'))
 def criaropcao(request, questao_id):
     if request.method == 'POST':
         opcao_texto = request.POST['opcaotext']
@@ -86,6 +84,7 @@ def criaropcao(request, questao_id):
 
     return render(request,'votacao/criaropcao.html',{'questao': get_object_or_404(Questao, pk=questao_id)})
 
+@permission_required('votacao.delete_questao', login_url=reverse_lazy('votacao:signup'))
 def apagarquestao(request, questao_id):
     q = get_object_or_404(Questao, pk=questao_id)
     q.delete()
@@ -95,6 +94,7 @@ def apagarquestao(request, questao_id):
 def logoutview(request):
     logout(request)
     return HttpResponseRedirect(reverse('votacao:index'))
+
 def signup(request):
     if request.method == 'POST':
         if request.POST['action'] == 'Login':

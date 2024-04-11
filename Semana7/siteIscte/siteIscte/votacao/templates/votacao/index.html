@@ -9,7 +9,9 @@
     </header>
     <aside>
         {% if request.user.is_authenticated %}
+            {% if request.user.aluno %}
             <img class="profile-picture" src="{% static 'media/' %}{{request.user.aluno.avatar}}">
+            {% endif %}
             Ola, {{request.user.username}} {% if not request.user.is_superuser %} (votos: {{request.user.aluno.total_votos}}) {% endif %}<br>
         {% else %}
             <i>Conta Anonima</i>
@@ -42,9 +44,9 @@
         {% endblock %}
 
         {% block opcoes %}
-                {% if request.user.is_superuser %}
+                {% if perms.votacao.add_questao %}
                 <a href="{% url 'votacao:criarquestao' %}">Criar nova Questao</a>
-            {% endif %}
+                {% endif %}
         {% endblock %}
 
     </main>

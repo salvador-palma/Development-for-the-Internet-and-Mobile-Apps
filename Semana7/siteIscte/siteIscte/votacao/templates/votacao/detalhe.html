@@ -18,21 +18,23 @@
         </br>
     {% endfor %}
 
-    {% if request.user.is_authenticated and not request.user.is_superuser %}
+    {% if request.user.is_authenticated and request.user.aluno %}
         <input type="submit" name="action" value="Voto" />
     {% elif not request.user.is_superuser %}
         <span style="color:red">Log in ou Registe-se para Votar</span>
     {% endif %}
-    {% if request.user.is_superuser %}
+    {% if perms.votacao.delete_opcao %}
         <input type="submit" name="action" value="Delete" />
     {% endif %}
 </form>
 {% endblock %}
 
 {% block opcoes %}
-{% if request.user.is_superuser %}
+{% if perms.votacao.delete_questao %}
 <a href="{% url 'votacao:apagarquestao' questao.id %}">Apagar Questao</a>
+{% endif %}
 <br>
+{% if perms.votacao.add_opcao %}
 <a href="{% url 'votacao:criaropcao' questao.id %}">Criar nova Opcao</a>
 {% endif %}
 {% endblock %}

@@ -1,0 +1,47 @@
+{% extends "./abstract.html" %}
+{% load static %}
+
+{% block content %}
+    <div id="company-card">
+        <div id="company-card-images">
+            <img class="profile-picture" src="{% static 'media/' %}{{client.picture}}" style="border-radius: 500px">
+        </div>
+        <div id="company-card-main">
+            <section id="company-card-main-info">
+                <h1 class="inverse">{{client.user.first_name}}</h1>
+                <h2 class="inverse">{{client.bio}}</h2>
+                <span style="margin-top:3vw">{{client.description}}</span>
+
+            </section>
+            <section id="company-card-main-review">
+
+                {% if request.user.client.id == client.id %}
+                    <a class="green-button" href="{% url 'PastelDeNata:userprofileedit' request.user.client.id %}">EDIT</a>
+                {% endif %}
+
+                {% if latest_reviews %}
+                    {% for review in latest_reviews %}
+                        <div class="review-card boxshadow">
+                            <img style="grid-area: icon" src="{% static 'media/' %}{{client.picture}}">
+                            <h3 class="inverse" style="grid-area: name">{{review.client.user.first_name}}</h3>
+                            <h4 class="inverse" style="grid-area: date; opacity: 0.5">{{ review.date|date:"d M. Y" }}</h4>
+                            <div class="star-rating" style="grid-area: rating">
+                                {% for i in '01234'|make_list %}
+                                    <img {% if forloop.counter0 < review.value %} class="star-filled" {% endif %}
+                                         src="{% static 'images/Star.svg' %}">
+                                {% endfor %}
+                            </div>
+                            <p style="grid-area: review;">{{ review.review }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <h4 class="inverse">Sem reviews...</h4>
+                {% endif %}
+
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+
+

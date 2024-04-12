@@ -345,7 +345,7 @@ p:not(.default) {
 
                 transition: all 0.2s ease;
 
-                &>img {
+                & img {
                     width: 75%;
                     border-radius: 500px
                 }

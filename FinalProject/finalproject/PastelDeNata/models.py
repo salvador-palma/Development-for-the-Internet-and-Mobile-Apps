@@ -15,10 +15,17 @@ class Enterprise(models.Model):
     rating_amount = models.IntegerField(default=0)
     rating_average = models.FloatField(default=0)
 
+class Client(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    description = models.TextField(null=True, default="Sem descrição ainda...")
+    bio = models.CharField(max_length=150, null=True, default="Sem bio ainda...")
+    picture = models.CharField(max_length=100, null=True, default="AvatarDefault")
+
+
 
 class Rating(models.Model):
     enterprise = models.ForeignKey(Enterprise,on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     value = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     review = models.TextField(null=True)
     date = models.DateTimeField(default=timezone.now) #Para obtermos as reviews mais recentes 👍

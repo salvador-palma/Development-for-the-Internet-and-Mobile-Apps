@@ -19,7 +19,7 @@
                 {% if request.user.enterprise %}
                     <a href="{% url 'PastelDeNata:companyprofile' request.user.enterprise.id %}">{{request.user.first_name}}</a>
                 {% else %}
-                    Ola, <a>{{request.user.first_name}}</a>
+                    Ola, <a href="{% url 'PastelDeNata:userprofile' request.user.client.id %}">{{request.user.first_name}}</a>
                 {% endif %}
                 <a class="icon" href="{% url 'PastelDeNata:sair' %}"><img src="{% static 'images/Logout.svg'%}"></a></div>
         {% else %}

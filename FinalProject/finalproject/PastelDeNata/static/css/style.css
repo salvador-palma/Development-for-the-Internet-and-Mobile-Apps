@@ -163,7 +163,7 @@ a.green-button {
 
 .star-rating{
     display: flex;
-
+    max-width:25%;
     &>img{
         width: calc(100% / 5);
         height: auto;
@@ -288,14 +288,23 @@ p:not(.default) {
         flex-direction: column;
         justify-content: start;
         align-items: center;
-
-        &>img {
-            border-radius: 10px;
-            width: 80%;
+        & > div{position: relative;}
+        & img {
+            border-radius: 10px; overflow: hidden;
+            width: 100%;
             margin-top: 10%;
             object-fit: cover;
             aspect-ratio: 1;
         }
+        & .remove-picture-button{
+            background-color: transparent;
+            border:none;
+            background-image: url('/static/images/IconTrash.png');
+            background-size: contain;
+            position: absolute;
+            bottom:1%; right:0; width:15%; aspect-ratio: 1;
+            border-radius: 0 0 10px 0;
+          }
 
     }
 

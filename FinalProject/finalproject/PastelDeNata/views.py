@@ -1,3 +1,6 @@
+import random
+import string
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
@@ -11,6 +14,7 @@ from PastelDeNata.models import District
 from PastelDeNata.models import Client
 
 from django.core.files.storage import FileSystemStorage
+from bs4 import BeautifulSoup
 def index(request):
     companies = Enterprise.objects.all().order_by('rating_average')
     districts = District.objects.all().order_by('name')
@@ -64,9 +68,9 @@ def companyprofile(request, company_id):
 
     if request.method == 'POST':
         if request.POST['action'] == 'GUARDAR':
-            photo_href_list = request.POST.getlist('companyPhoto')
-            update_company_photos(company, photo_href_list)
-            company.district = District.objects.get(name = request.POST['companyDistrict'])
+
+            update_company_photos(company, request)
+            company.district = District.objects.get(name=request.POST['companyDistrict'])
             company.address = request.POST['companyAddress']
             company.description = request.POST['companyDescription']
             company.save()
@@ -101,7 +105,6 @@ def userprofile(request, client_id):
             client.picture = "Avatar" + str(client_id)
             print(client.picture)
 
-        print("YO")
         client.description = request.POST['description']
         client.user.first_name = request.POST['firstname']
         client.bio = request.POST['bio']
@@ -119,19 +122,20 @@ def userprofileedit(request, client_id):
 
 
 # ========= 👾 H E L P F U L    F U N C T I O N S 🧩 ========== #
-def update_company_photos(company, href_list):
-    existing_photos = Photo.objects.filter(enterprise = company)
-    existing_href_set = set(photo.href for photo in existing_photos)
-    provided_href_set = set(href_list)
+def update_company_photos(company, request):
+    pictureList = request.FILES.getlist('companyPhotosSrc')
+    pictureListFixed = request.POST.getlist('companyPhotosSrcFixed')
+    fs = FileSystemStorage()
+    for item in Photo.objects.filter(enterprise__id=company.id):
+        if item.href not in pictureListFixed:
+            item.delete()
+            fs.delete(item.href)
 
-    # Delete photos whose hrefs are not in the provided list
-    photos_to_delete = existing_photos.exclude(href__in=provided_href_set)
-    photos_to_delete.delete()
+    for item in pictureList:
+        file_name = fs.save("Picture" + str(company.id) + "-" + generate_random_filename(20), item)
+        photo = Photo.objects.create(enterprise=company, href=file_name)
+        photo.save()
 
-    # Add new photos for the hrefs that don't already exist
-    new_hrefs = provided_href_set - existing_href_set
-    for href in new_hrefs:
-        Photo.objects.create(enterprise=company, href=href).save()
 
 def get_all_companies(request):
 
@@ -160,3 +164,9 @@ def get_all_companies(request):
         results = results.order_by('-user__first_name')
 
     return render(request, 'PastelDeNata/company_table.html',{'companies': results,})
+
+
+def generate_random_filename(length):
+    allowed_characters = string.ascii_letters + string.digits + "_-"
+    random_string = ''.join(random.choice(allowed_characters) for _ in range(length))
+    return random_string

@@ -1,10 +1,11 @@
 {% load static %}
 {% for company in companies %}
+{% if company.is_valid %}
 <a class="company-slot boxshadow hoverable" href="{% url 'PastelDeNata:companyprofile' company.id %}">
-    <img src="{{company.photo_set.first.href}}">
+    <img src="{% static 'media/' %}{{company.photo_set.first.href}}">
     <div>
-        <h3 class="inverse" style="font-size: 1vw">{{company.user.first_name}}</h3>
-        <span style="opacity: 0.5; font-size: 0.7vw">{{company.district.name}}, {{company.address}}</span>
+        <h3 class="inverse" style="font-size: 1vw;">{{company.user.first_name}}</h3>
+        <span style="opacity: 0.5; font-size: 0.7vw;">{{company.district.name}}, {{company.address}}</span>
         <div class="star-rating" style="width:30%">
             {% for i in '01234'|make_list %}
             <img {% if forloop.counter0 < company.rating_average %} class="star-filled" {% endif %} src="{% static 'images/Star.svg' %}">
@@ -12,4 +13,5 @@
         </div>
     </div>
 </a>
+{% endif %}
 {% endfor %}

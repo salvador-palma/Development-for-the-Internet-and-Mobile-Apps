@@ -20,9 +20,9 @@
 
                 {% if latest_reviews %}
                     {% for review in latest_reviews %}
-                        <div class="review-card boxshadow">
-                            <img style="grid-area: icon" src="{% static 'media/' %}{{client.picture}}">
-                            <h3 class="inverse" style="grid-area: name">{{review.client.user.first_name}}</h3>
+                        <a class="review-card boxshadow" href="{% url 'PastelDeNata:companyprofile' review.enterprise.id %}">
+                            <img class="profile-picture" style="grid-area: icon" src="{% static 'media/' %}{{review.enterprise.photo_set.first.href}}">
+                            <h3 class="inverse" style="grid-area: name">{{review.enterprise.user.first_name}}</h3>
                             <h4 class="inverse" style="grid-area: date; opacity: 0.5">{{ review.date|date:"d M. Y" }}</h4>
                             <div class="star-rating" style="grid-area: rating">
                                 {% for i in '01234'|make_list %}
@@ -30,8 +30,8 @@
                                          src="{% static 'images/Star.svg' %}">
                                 {% endfor %}
                             </div>
-                            <p style="grid-area: review;">{{ review.review }}</p>
-                        </div>
+                            <p class="inverse" style="grid-area: review;">{{ review.review }}</p>
+                        </a>
                     {% endfor %}
                 {% else %}
                         <h4 class="inverse">Sem reviews...</h4>

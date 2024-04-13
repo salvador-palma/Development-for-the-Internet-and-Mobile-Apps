@@ -1,0 +1,17 @@
+Stars evaluation css
+
+✅ Delete review
+✅ Overwrite review
+Recent Reviews + Own
+
+✅ Alternate Review Card Style (for user profile)
+User Stats (reviews amount and average)
+Company Stats (reviews per rating)
+
+POST clear
+
+===  I D E A S  ===
+Followers (on Users)          User *-* User
+Following (on Users)          User *-* User
+Favourites (on Companies)     User *-* Companies
+Likes (on Reviews)            User *-* Reviews

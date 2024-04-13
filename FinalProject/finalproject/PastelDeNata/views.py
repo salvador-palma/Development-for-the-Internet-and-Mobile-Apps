@@ -75,8 +75,18 @@ def companyprofile(request, company_id):
             company.description = request.POST['companyDescription']
             company.save()
         elif request.POST['action'] == 'SUBMETER':
+
+            previous_review = Rating.objects.filter(enterprise=company, client=request.user.client)
+
             value = request.POST['stars']
             review = request.POST['review_text']
+
+            if previous_review.exists():
+
+                company.rating_average = ((company.rating_average*company.rating_amount) - int(value))/(max(company.rating_amount - 1, 1))
+                company.rating_amount -= 1
+                previous_review.delete()
+
             rating = Rating.objects.create(enterprise=company, client=request.user.client, value=value, review=review)
 
             company.rating_average = ((company.rating_average * company.rating_amount) + int(value))/(company.rating_amount + 1)
@@ -121,7 +131,7 @@ def userprofileedit(request, client_id):
     return render(request, 'PastelDeNata/profile-editar.html',{'client': client})
 
 
-# ========= 👾 H E L P F U L    F U N C T I O N S 🧩 ========== #
+# ========= 👾 A J A X    A N D    R E Q U E S T 🧩 ========== #
 def update_company_photos(company, request):
     pictureList = request.FILES.getlist('companyPhotosSrc')
     pictureListFixed = request.POST.getlist('companyPhotosSrcFixed')
@@ -165,7 +175,19 @@ def get_all_companies(request):
 
     return render(request, 'PastelDeNata/company_table.html',{'companies': results,})
 
+def remove_review(request):
 
+    company = get_object_or_404(Enterprise, pk=request.GET['company_id'])
+    client = request.user.client
+    previous_review = Rating.objects.get(enterprise=company, client=client)
+    company.rating_average = ((company.rating_average * company.rating_amount) - int(previous_review.value)) / (max(company.rating_amount - 1, 1))
+    company.rating_amount -= 1
+    company.save()
+    previous_review.delete()
+    return companyprofile(request, company_id=company.id)
+
+
+# ========= 👾 H E L P F U L    F U N C T I O N S 🧩 ========== #
 def generate_random_filename(length):
     allowed_characters = string.ascii_letters + string.digits + "_-"
     random_string = ''.join(random.choice(allowed_characters) for _ in range(length))

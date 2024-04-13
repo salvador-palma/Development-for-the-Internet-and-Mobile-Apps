@@ -15,6 +15,9 @@ class Enterprise(models.Model):
     rating_amount = models.IntegerField(default=0)
     rating_average = models.FloatField(default=0)
 
+    def is_valid(self):
+        return bool(self.description) and bool(self.address) and bool(self.district)
+
 class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     description = models.TextField(null=True, default="Sem descrição ainda...")
@@ -29,6 +32,8 @@ class Rating(models.Model):
     value = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     review = models.TextField(null=True)
     date = models.DateTimeField(default=timezone.now) #Para obtermos as reviews mais recentes 👍
+
+
 
 class Photo(models.Model):
     enterprise = models.ForeignKey(Enterprise,on_delete=models.CASCADE)

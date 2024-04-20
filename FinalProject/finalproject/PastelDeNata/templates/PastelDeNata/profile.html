@@ -4,13 +4,15 @@
 {% block content %}
     <div id="company-card">
         <div id="company-card-images">
-            <img class="profile-picture" src="{% static 'media/' %}{{client.picture}}" style="border-radius: 500px">
+            <img class="profile-picture" src="{% static 'media/' %}{{client.picture}}" style="border-radius: 500px"><br>
+            <h4>Reviews: {{ all_reviews|length }}</h4><br>
+            <h4>Avaliacao Media: {{ average_rating|floatformat:"1" }}</h4>
         </div>
         <div id="company-card-main">
             <section id="company-card-main-info">
                 <h1 class="inverse">{{client.user.first_name}}</h1>
                 <h2 class="inverse">{{client.bio}}</h2>
-                <span style="margin-top:3vw">{{client.description}}</span>
+                <span style="margin-top:1vw; white-space: pre-wrap;">{{client.description}}</span>
             </section>
             <section id="company-card-main-review">
 
@@ -18,8 +20,8 @@
                     <a class="green-button" href="{% url 'PastelDeNata:userprofileedit' request.user.client.id %}">EDIT</a>
                 {% endif %}
 
-                {% if latest_reviews %}
-                    {% for review in latest_reviews %}
+                {% if all_reviews %}
+                    {% for review in all_reviews %}
                         <a class="review-card boxshadow" href="{% url 'PastelDeNata:companyprofile' review.enterprise.id %}">
                             <img class="profile-picture" style="grid-area: icon" src="{% static 'media/' %}{{review.enterprise.photo_set.first.href}}">
                             <h3 class="inverse" style="grid-area: name">{{review.enterprise.user.first_name}}</h3>

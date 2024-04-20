@@ -175,6 +175,25 @@ a.green-button {
 
     }
 }
+.star-rating-input{
+    display: flex;
+    flex-direction: row-reverse;
+    & >input[type="radio"]{
+            display:none;
+      }
+      & > label{
+            width: 1vw;
+            aspect-ratio: 1;
+            background-image: url('/static/images/Star.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+      & > input:checked ~ label{
+        filter: brightness(0) saturate(100%) invert(59%) sepia(99%) saturate(404%) hue-rotate(349deg) brightness(100%) contrast(91%);
+
+        }
+
+}
 
 h1,
 h2,
@@ -185,9 +204,31 @@ h6 {
     color: whitesmoke;
     &:not(.default) {
         margin: 0;
-
     }
+}
 
+body::-webkit-scrollbar {
+  display:none;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: transparent;
+
+}
+
+
+::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+  background: rgba(252, 252, 252, 0.78);
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #eeeeee;
 }
 
 .transparent-button {
@@ -336,7 +377,7 @@ p:not(.default) {
                 padding: 2%;
                 display: grid;
                 width: 100%;
-                min-height: 15vw;
+                min-height: 10vw;
                 grid-template-columns: 3fr 15fr 2fr;
                 grid-template-rows: 2vw 2vw auto;
                 grid-template-areas: "icon name rating" "icon date ." ". review review";
@@ -361,9 +402,20 @@ p:not(.default) {
 }
 
 #Background-Image {
+
     position: fixed;
     z-index: -1;
     width: 100%;
+    padding:0;margin:0;
+    aspect-ratio: 2;
+    border: none;
+    background-image: url('/static/images/Bakery.png');
+    background-size: 100%;
+    top:0;
+	background-position: top center !important;
+    overflow: hidden;
+
+
 }
 
 #Hero {
@@ -421,12 +473,13 @@ p:not(.default) {
 #CompanyGridContainer {
     margin: auto;
     width: 60%;
+    transform: translateY(-17vw);
     & > #company-grid-scrollview{
-    overflow:auto;
-    width: 100%;
+        overflow:auto;
+        width: 100%;
         aspect-ratio: 1.33;
         height:auto;
-      }
+    }
     & #company-grid {
         width: 100%;
          display:grid;
@@ -497,6 +550,7 @@ p:not(.default) {
 
     &>img {
         height:65%;
+        aspect-ratio: 2.35;
         padding: 0 1vw;
         background-color: #F3A128;
     }
@@ -526,3 +580,4 @@ main {
     aspect-ratio: 1;
 
 }
+

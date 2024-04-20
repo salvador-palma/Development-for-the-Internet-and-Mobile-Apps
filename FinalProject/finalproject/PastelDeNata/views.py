@@ -3,6 +3,7 @@ import string
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.db.models import Sum, Avg
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -54,27 +55,30 @@ def sair(request):
     return HttpResponseRedirect(reverse('PastelDeNata:index'))
 
 def companyprofileedit(request, company_id):
-    if(request.user.enterprise.id != company_id):
-        return HttpResponseRedirect(reverse('PastelDeNata:index'))
-    company = get_object_or_404(Enterprise, pk=company_id)
+    if request.method == 'POST' and request.POST['action'] == 'GUARDAR':
+        company = get_object_or_404(Enterprise, pk=company_id)
+        update_company_photos(company, request)
+        company.district = District.objects.get(name__contains=request.POST['companyDistrict'])
+        company.address = request.POST['companyAddress']
+        company.description = request.POST['companyDescription']
+        company.save()
+        return HttpResponseRedirect(reverse('PastelDeNata:companyprofile', kwargs={'company_id': company_id}))
+    else:
+        if(request.user.enterprise.id != company_id):
+            return HttpResponseRedirect(reverse('PastelDeNata:index'))
+        company = get_object_or_404(Enterprise, pk=company_id)
 
-    districts = District.objects.all()
-    company_photos = Photo.objects.filter(enterprise__id=company_id)
+        districts = District.objects.all()
+        company_photos = Photo.objects.filter(enterprise__id=company_id)
 
-    return render(request, 'PastelDeNata/estabelecimento-editar.html',{'company': company,'company_photos': company_photos, 'districts': districts})
+        return render(request, 'PastelDeNata/estabelecimento-editar.html',{'company': company,'company_photos': company_photos, 'districts': districts})
 
 def companyprofile(request, company_id):
     company = get_object_or_404(Enterprise, pk=company_id)
 
     if request.method == 'POST':
-        if request.POST['action'] == 'GUARDAR':
 
-            update_company_photos(company, request)
-            company.district = District.objects.get(name=request.POST['companyDistrict'])
-            company.address = request.POST['companyAddress']
-            company.description = request.POST['companyDescription']
-            company.save()
-        elif request.POST['action'] == 'SUBMETER':
+        if request.POST['action'] == 'SUBMETER':
 
             previous_review = Rating.objects.filter(enterprise=company, client=request.user.client)
 
@@ -86,18 +90,22 @@ def companyprofile(request, company_id):
                 company.rating_average = ((company.rating_average*company.rating_amount) - int(value))/(max(company.rating_amount - 1, 1))
                 company.rating_amount -= 1
                 previous_review.delete()
-
-            rating = Rating.objects.create(enterprise=company, client=request.user.client, value=value, review=review)
-
-            company.rating_average = ((company.rating_average * company.rating_amount) + int(value))/(company.rating_amount + 1)
+            company_stars = Rating.objects.filter(enterprise=company).aggregate(total_sum=Sum('value')).get('total_sum', 0)
+            if company_stars is None:
+                company_stars = 0
+            total_stars = company_stars + int(value)
             company.rating_amount += 1
+            company.rating_average = total_stars / company.rating_amount
             company.save()
 
+            rating = Rating.objects.create(enterprise=company, client=request.user.client, value=value, review=review)
             rating.save()
 
-    latest_reviews = Rating.objects.filter(enterprise__id = company_id).order_by('-date')[:5]
-    company_photos = Photo.objects.filter(enterprise__id = company_id)
-    return render(request, 'PastelDeNata/estabelecimento.html',{'company': company, 'latest_reviews': latest_reviews, 'company_photos': company_photos})
+    latest_reviews = Rating.objects.filter(enterprise__id=company_id).order_by('-date')[:5]
+    if hasattr(request.user, 'client'):
+        latest_reviews = Rating.objects.filter(enterprise__id=company_id, client=request.user.client) | latest_reviews
+    company_photos = Photo.objects.filter(enterprise__id=company_id)
+    return render(request, 'PastelDeNata/estabelecimento.html', {'company': company, 'latest_reviews': latest_reviews, 'company_photos': company_photos})
 
 
 def userprofile(request, client_id):
@@ -121,8 +129,10 @@ def userprofile(request, client_id):
         client.save()
         client.user.save()
 
-    latest_reviews = Rating.objects.filter(client__id=client_id).order_by('-date')[:5]
-    return render(request, 'PastelDeNata/profile.html',{'client': client, 'latest_reviews': latest_reviews})
+    all_reviews = Rating.objects.filter(client__id=client_id).order_by('-date')
+    average_rating = all_reviews.aggregate(avg_value=Avg('value'))['avg_value']
+    return render(request, 'PastelDeNata/profile.html',{'client': client, 'all_reviews': all_reviews, 'average_rating': average_rating})
+
 
 def userprofileedit(request, client_id):
     if(request.user.client.id != client_id):
@@ -173,18 +183,22 @@ def get_all_companies(request):
     elif sorting_mode == 'ALF_DESC':
         results = results.order_by('-user__first_name')
 
-    return render(request, 'PastelDeNata/company_table.html',{'companies': results,})
+    return render(request, 'PastelDeNata/company_table.html', {'companies': results, })
 
-def remove_review(request):
 
-    company = get_object_or_404(Enterprise, pk=request.GET['company_id'])
+def remove_review(request, company_id):
+    company = get_object_or_404(Enterprise, pk=company_id)
     client = request.user.client
     previous_review = Rating.objects.get(enterprise=company, client=client)
-    company.rating_average = ((company.rating_average * company.rating_amount) - int(previous_review.value)) / (max(company.rating_amount - 1, 1))
-    company.rating_amount -= 1
-    company.save()
     previous_review.delete()
-    return companyprofile(request, company_id=company.id)
+
+    total_stars = Rating.objects.filter(enterprise=company).aggregate(total_sum=Sum('value')).get('total_sum', 0)
+    if total_stars is None:
+        total_stars = 0
+    company.rating_amount -= 1
+    company.rating_average = total_stars / max(company.rating_amount, 1)
+    company.save()
+    return HttpResponseRedirect(reverse('PastelDeNata:companyprofile', kwargs={'company_id': company_id}))
 
 
 # ========= 👾 H E L P F U L    F U N C T I O N S 🧩 ========== #

@@ -11,7 +11,7 @@
 
 </head>
 <body>
-    <img id="Background-Image" src="{% static 'images/Bakery.png' %}">
+<div id="Background-Image" class="zoom"></div>
     <header id="Header">
         <a style="text-decoration:none" href="{% url 'PastelDeNata:index' %}"><span>•••</span>PASTEL DE NATA<span>•••</span></a>
         {% if request.user.is_authenticated %}

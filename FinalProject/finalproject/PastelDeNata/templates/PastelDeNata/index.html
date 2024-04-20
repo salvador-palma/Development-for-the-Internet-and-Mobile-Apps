@@ -43,6 +43,20 @@
                 });
             }
         </script>
+        <script>
+            $(window).scroll(function() {
+              updateScroll();
+            });
+
+            function updateScroll(){
+                var scroll = $(window).scrollTop();
+                $("#Background-Image").css({
+                    backgroundSize: (100 + scroll/25)  + "%",
+                    top: -(scroll/15)  + "%",
+                });
+            }
+            updateScroll();
+        </script>
 {% endblock %}
 
 

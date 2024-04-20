@@ -16,20 +16,6 @@
                 ReviewPanelOn = !ReviewPanelOn
             });
         });
-
-        const cID = "{{company.id}}"
-        function RemoveReview(element){
-                console.log("YWEY")
-                $.ajax({
-                    url: "{% url 'PastelDeNata:remove_review' %}",
-                    data: {
-                        'company_id': cID,
-                    },
-                    success: function (response) {
-                        location.reload(true)
-                    }
-                });
-        }
     </script>
 
 {% endblock %}
@@ -55,7 +41,7 @@
                         <img {% if forloop.counter0 < company.rating_average %} class="star-filled" {% endif %}
                         src="{% static 'images/Star.svg' %}">
                     {% endfor %}
-                    ({{company.rating_average}})
+                    ({{company.rating_average|floatformat:"2"}})
                 </div>
 
                 <span style="margin-top:3vw">{{company.description}}</span>
@@ -68,12 +54,19 @@
                 {% endif %}
                 <form method="post" id="company-card-main-review-form" class="v-container hidden" action="{% url 'PastelDeNata:companyprofile' company.id %}">
                     {% csrf_token %}
-                    <fieldset class="h-container">
-                        <input type="radio" name="stars" value="1">
-                        <input type="radio" name="stars" value="2">
-                        <input type="radio" name="stars" value="3">
-                        <input type="radio" name="stars" value="4">
-                        <input type="radio" name="stars" value="5">
+                    <fieldset class="h-container star-rating-input">
+
+
+                        <input id="star1" type="radio" name="stars" value="5" >
+                        <label for="star1"></label>
+                        <input id="star2" type="radio" name="stars" value="4">
+                        <label for="star2"></label>
+                        <input id="star3" type="radio" name="stars" value="3">
+                        <label for="star3"></label>
+                        <input id="star4" type="radio" name="stars" value="2">
+                        <label for="star4"></label>
+                        <input id="star5" type="radio" name="stars" value="1" checked>
+                        <label for="star5"></label>
                     </fieldset>
 
 
@@ -87,8 +80,8 @@
                 {% if latest_reviews %}
                     {% for review in latest_reviews %}
 
-                        <a class="review-card boxshadow" href="{% url 'PastelDeNata:userprofile' review.client.id %}">
-                            <img style="grid-area: icon" src="{% static 'media/' %}{{review.client.picture}}">
+                        <div class="review-card boxshadow" >
+                            <a href="{% url 'PastelDeNata:userprofile' review.client.id %}"><img style="grid-area: icon" src="{% static 'media/' %}{{review.client.picture}}"></a>
                             <h3 class="inverse" style="grid-area: name">{{review.client.user.first_name}}</h3>
                             <h4 class="inverse" style="grid-area: date; opacity: 0.5">{{ review.date|date:"d M. Y" }}</h4>
                             <div class="star-rating" style="grid-area: rating">
@@ -98,10 +91,11 @@
                                 {% endfor %}
                             </div>
                             <p class="inverse" style="grid-area: review;">{{ review.review }}</p>
+
                             {% if review.client.id == request.user.client.id %}
-                                <button class="remove-picture-button" onclick="RemoveReview(this)" type="button"></button>
+                                <a class="remove-picture-button" href="{% url 'PastelDeNata:remove_review' company.id%}" type="button" style="z-index: 2"></a>
                             {% endif %}
-                        </a>
+                        </div>
                     {% endfor %}
                 {% else %}
                         <h4 class="inverse">Sem reviews...</h4>

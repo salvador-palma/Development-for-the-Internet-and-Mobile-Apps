@@ -1,0 +1,83 @@
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'votacao/css/style.css' %}">
+    {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#ProfilePic").dblclick(function(){
+                $("#ProfilePic").hide()
+            })
+            $("#Username").click(function(){
+                $("#ProfilePic").show()
+            })
+
+
+        })
+        function ToggleQuestionList(){
+            if ($("#QuestionList").hasClass("hidden")){
+                $("#QuestionList").removeClass("hidden")
+                $("#ToggleListButton").text("Esconder Questoes")
+            }else{
+                $("#QuestionList").addClass("hidden")
+                $("#ToggleListButton").text("Mostrar Questoes")
+            }
+        }
+    </script>
+    {% endblock %}
+
+</head>
+<body>
+    <header>
+            <strong>{% block titulo %} SISTEMA DE VOTOS ISCTE {% endblock %}</strong>
+    </header>
+    <aside>
+        {% if request.user.is_authenticated %}
+            {% if request.user.aluno %}
+            <img id="ProfilePic" class="profile-picture" src="{% static 'media/' %}{{request.user.aluno.avatar}}">
+            {% endif %}
+            Ola, <span id="Username">{{request.user.username}}</span> {% if not request.user.is_superuser %} (votos: {{request.user.aluno.total_votos}}) {% endif %}<br>
+        {% else %}
+            <i>Conta Anonima</i>
+        {% endif %}
+        <nav>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'votacao:profile' %}">Perfil </a>
+            <a href="{% url 'votacao:logoutview' %}">Log Out</a>
+            {% else %}
+            <a href="{% url 'votacao:signup' %}">Log In / Registar</a>
+            {% endif %}
+            <a href="{% url 'votacao:index' %}">Menu</a>
+
+        </nav>
+    </aside>
+    <main>
+        <img src="{% static 'votacao/img/banner.jpg' %}" id="banner">
+        {% block conteudo %}
+            <button id="ToggleListButton" onclick="ToggleQuestionList()">Mostrar Questoes</button>
+            <section id="QuestionList" class="hidden">
+                {% if latest_question_list %}
+                 <ul>
+                     {% for questao in latest_question_list %}
+                        <li>
+                            <a href="{% url 'votacao:detalhe' questao.id %}">{{ questao.questao_texto }}</a>
+                        </li>
+                     {% endfor %}
+                 </ul>
+                {% else %}
+                     <p>Nao ha questoes disponiveis.</p>
+                {% endif %}
+            </section>
+        {% endblock %}
+
+        {% block opcoes %}
+                {% if perms.votacao.add_questao %}
+                <a href="{% url 'votacao:criarquestao' %}">Criar nova Questao</a>
+                {% endif %}
+        {% endblock %}
+
+    </main>
+
+
+</body>
+

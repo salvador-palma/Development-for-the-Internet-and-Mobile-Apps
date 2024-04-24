@@ -1,0 +1,56 @@
+{% extends "./index.html" %}
+{% load static %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#UserInfo").hide()
+        $("#ProfilePicProfile").hover(function(){$("#UserInfo").show()},function(){$("#UserInfo").hide()}
+        )
+
+        $("#HistoryPanel").hide()
+        $("#HistoryButton").click(function(){
+            if($("#HistoryPanel").is(":hidden")){
+                $("#HistoryButton").text("Esconder Historico")
+                $("#HistoryPanel").show()
+            }else{
+                $("#HistoryButton").text("Mostrar Historico")
+                $("#HistoryPanel").hide()
+            }
+        })
+    })
+
+
+</script>
+{% endblock %}
+
+{% block titulo %}
+SISTEMA DE VOTOS ISCTE - PERFIL
+{% endblock %}
+{% block conteudo %}
+<img id="ProfilePicProfile" class="profile-picture" src="{% static 'media/' %}{{request.user.aluno.avatar}}" style="width:50px">
+<section id="UserInfo">
+    Username: {{request.user.username}} <br>
+    Email: {{request.user.email}} <br>
+    Curso: {{request.user.aluno.curso}} <br>
+    Total de Votos: {{request.user.aluno.total_votos}} <br>
+</section>
+<form method="post" enctype="multipart/form-data" action="{% url 'votacao:profile' %}">
+    <fieldset>
+        {% csrf_token %}
+        Alterar foto de Perfil
+        <input type="file" name="myfile">
+        <input type="submit" value="Upload">
+    </fieldset>
+</form>
+
+{% endblock %}
+
+{% block opcoes %}
+<button id="HistoryButton">Mostrar Historico</button>
+<section id="HistoryPanel">
+    {% for voto in request.user.aluno.votos.all %}
+        {{voto.questao.questao_texto}}: {{voto.opcao_texto}}
+    {% endfor %}
+</section>
+{% endblock %}

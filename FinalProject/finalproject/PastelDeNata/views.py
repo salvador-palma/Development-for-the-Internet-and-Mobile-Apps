@@ -1,25 +1,19 @@
 import random
 import string
-
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db.models import Sum, Avg
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-
-from PastelDeNata.models import Enterprise
-from PastelDeNata.models import Rating
-from PastelDeNata.models import Photo
-from PastelDeNata.models import District
-from PastelDeNata.models import Client
-
+from PastelDeNata.models import Enterprise, Rating, Photo, District, Client
 from django.core.files.storage import FileSystemStorage
-from bs4 import BeautifulSoup
+
 def index(request):
     companies = Enterprise.objects.all().order_by('rating_average')
     districts = District.objects.all().order_by('name')
     return render(request, 'PastelDeNata/index.html',{'companies': companies, "districts": districts})
+
 def registar(request):
     if request.method == 'POST':
         if request.POST['action'] == 'Login':
@@ -34,7 +28,6 @@ def registar(request):
         elif request.POST['action'] == 'Registar':
 
             clientType = request.POST['clientType']
-
             username = request.POST['username']
             password = request.POST['password']
             email = request.POST['email']
@@ -54,7 +47,11 @@ def sair(request):
     logout(request)
     return HttpResponseRedirect(reverse('PastelDeNata:index'))
 
+
 def companyprofileedit(request, company_id):
+    if (request.user.enterprise.id != company_id):
+        return HttpResponseRedirect(reverse('PastelDeNata:index'))
+
     if request.method == 'POST' and request.POST['action'] == 'GUARDAR':
         company = get_object_or_404(Enterprise, pk=company_id)
         update_company_photos(company, request)
@@ -64,10 +61,7 @@ def companyprofileedit(request, company_id):
         company.save()
         return HttpResponseRedirect(reverse('PastelDeNata:companyprofile', kwargs={'company_id': company_id}))
     else:
-        if(request.user.enterprise.id != company_id):
-            return HttpResponseRedirect(reverse('PastelDeNata:index'))
         company = get_object_or_404(Enterprise, pk=company_id)
-
         districts = District.objects.all()
         company_photos = Photo.objects.filter(enterprise__id=company_id)
 
@@ -169,7 +163,7 @@ def get_all_companies(request):
     if district != "Portugal Inteiro":
         results = results.filter(district__name=district)
 
-    # Nao vale a pena otimizar, Python 3.9 nao tem switch/match 🙃💔
+    # Nao vale a pena otimizar, Python 3.9 nao tem switch/match 🙃
     if sorting_mode == 'RAT_ASC':
         results = results.order_by('rating_average')
     elif sorting_mode == 'RAT_DESC':
@@ -186,9 +180,9 @@ def get_all_companies(request):
     return render(request, 'PastelDeNata/company_table.html', {'companies': results, })
 
 
-def remove_review(request, company_id):
+def remove_review(request, company_id, client_id):
     company = get_object_or_404(Enterprise, pk=company_id)
-    client = request.user.client
+    client = get_object_or_404(Client, pk=client_id)
     previous_review = Rating.objects.get(enterprise=company, client=client)
     previous_review.delete()
 

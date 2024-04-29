@@ -67,7 +67,13 @@
             <p class="default">Plataforma de criticas e reviews <br> ao melhor bolo do mundo </p>
 
             {% if request.user.is_authenticated %}
-                <button class="green-button">Ver Estabelecimentos</button>
+                <a class="green-button hoverable"
+                    {% if request.user.client %}
+                        href="{% url 'PastelDeNata:userprofile' request.user.client.id %}"
+                    {% else %}
+                        href="{% url 'PastelDeNata:companyprofile' request.user.enterprise.id %}"
+                    {% endif %}
+                >VER PERFIL</a>
             {% else %}
                 <a href="{% url 'PastelDeNata:registar' %}" class="green-button hoverable">LOG IN</a>
             {% endif %}
@@ -78,7 +84,7 @@
         <section id="Review">
             <img src = "{% static 'images/BrownBanner.svg' %}"/>
             <h3 class="default">APRECIADOR DE PASTEL DE NATA?</h3>
-            <button class="green-button">Faca uma Review</button>
+            <a class="green-button" href="#CompanyGridContainer">Faca uma Review</a>
         </section>
         <section id="CompanyGridContainer" class="v-container">
             <h1 class="textshadow" style="font-weight: 600">DESCUBRA A SUA PROXIMA EXPERIENCIA</h1>

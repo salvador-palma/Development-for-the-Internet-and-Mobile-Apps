@@ -12,5 +12,5 @@ urlpatterns = [
 
  # ========= 📞 H E L P F U L    U R L    C A L L S 💭 ========== #
  path('companies', views.get_all_companies, name='get_all_companies'),
- path('remove_review/<int:company_id>', views.remove_review, name='remove_review'),
+ path('remove_review/<int:company_id>/<int:client_id>', views.remove_review, name='remove_review'),
 ]

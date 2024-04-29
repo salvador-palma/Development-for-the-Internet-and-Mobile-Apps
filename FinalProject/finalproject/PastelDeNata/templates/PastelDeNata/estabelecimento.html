@@ -49,14 +49,12 @@
             </section>
             <section id="company-card-main-review">
 
-                {% if not request.user.enterprise %}
-                    <button class="green-button" id="ReviewButton">REVIEW</button>
-                {% endif %}
+
+                {% if request.user.client %}
+                <button class="green-button" id="ReviewButton">REVIEW</button>
                 <form method="post" id="company-card-main-review-form" class="v-container hidden" action="{% url 'PastelDeNata:companyprofile' company.id %}">
                     {% csrf_token %}
                     <fieldset class="h-container star-rating-input">
-
-
                         <input id="star1" type="radio" name="stars" value="5" >
                         <label for="star1"></label>
                         <input id="star2" type="radio" name="stars" value="4">
@@ -68,11 +66,10 @@
                         <input id="star5" type="radio" name="stars" value="1" checked>
                         <label for="star5"></label>
                     </fieldset>
-
-
                     <textarea placeholder="Escreva aqui a sua opiniao" name="review_text" class="styled-input"></textarea>
                     <input class="green-button" type="submit" name="action" value="SUBMETER" />
                 </form>
+                {% endif %}
                 {% if request.user.enterprise.id == company.id %}
                     <a class="green-button" href="{% url 'PastelDeNata:companyprofileedit' request.user.enterprise.id %}">EDIT</a>
                 {% endif %}
@@ -82,7 +79,7 @@
 
                         <div class="review-card boxshadow" >
                             <a href="{% url 'PastelDeNata:userprofile' review.client.id %}"><img style="grid-area: icon" src="{% static 'media/' %}{{review.client.picture}}"></a>
-                            <h3 class="inverse" style="grid-area: name">{{review.client.user.first_name}}</h3>
+                            <h3 class="inverse" style="grid-area: name">{% if review.client.user.is_superuser %}[MOD] {% endif %}{{review.client.user.first_name}}</h3>
                             <h4 class="inverse" style="grid-area: date; opacity: 0.5">{{ review.date|date:"d M. Y" }}</h4>
                             <div class="star-rating" style="grid-area: rating">
                                 {% for i in '01234'|make_list %}
@@ -92,8 +89,8 @@
                             </div>
                             <p class="inverse" style="grid-area: review;">{{ review.review }}</p>
 
-                            {% if review.client.id == request.user.client.id %}
-                                <a class="remove-picture-button" href="{% url 'PastelDeNata:remove_review' company.id%}" type="button" style="z-index: 2"></a>
+                            {% if review.client.id == request.user.client.id or request.user.is_superuser%}
+                                <a class="remove-picture-button" href="{% url 'PastelDeNata:remove_review' company.id review.client.id%}" type="button" style="z-index: 2"></a>
                             {% endif %}
                         </div>
                     {% endfor %}

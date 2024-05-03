@@ -11,7 +11,7 @@
     <form id="company-edit-form" action="{% url 'PastelDeNata:companyprofileedit' company.id %}" enctype="multipart/form-data" method="post" style="width: 100%; height: 100%">
         {% csrf_token %}
         <div id="company-card">
-             <div id="company-card-images">
+             <aside id="company-card-images">
                  {% for photo in company_photos %}
                  <div>
                      <img type="text" name="companyPhoto" style="width:100%" src="{% static 'media/' %}{{photo.href}}">
@@ -26,8 +26,8 @@
                  <input id="upload-image-company" class="styled-input" type="file" name="picture" style="width:90%">
                 <button type="button" class="green-button" style="margin:1vw 0" onclick="uploadImage()">Upload</button>
 
-            </div>
-            <div id="company-card-main" >
+            </aside>
+            <main id="company-card-main" >
                 <h1 class="inverse">{{company.user.first_name}}</h1>
                 <fieldset >
                     <select class="styled-input" type="text" name="companyDistrict">
@@ -40,7 +40,7 @@
                     <textarea class="styled-input" name="companyDescription" placeholder="Descricao..." style="height:25vw">{{company.description}}</textarea>
                 </fieldset>
                 <input class="green-button" type="submit" name="action" value="GUARDAR" />
-            </div>
+            </main>
         </div>
     </form>
 {% endblock %}

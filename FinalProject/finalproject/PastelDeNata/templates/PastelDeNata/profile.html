@@ -1,14 +1,17 @@
 {% extends "./abstract.html" %}
 {% load static %}
-
+{% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="{% static 'js/scrollBehaviours.js' %}"></script>
+{% endblock %}
 {% block content %}
-    <div id="company-card">
-        <div id="company-card-images">
+    <main id="company-card">
+        <aside id="company-card-images">
             <img class="profile-picture" src="{% static 'media/' %}{{client.picture}}" style="border-radius: 500px"><br>
             <h4>Reviews: {{ all_reviews|length }}</h4><br>
             <h4>Avaliacao Media: {{ average_rating|floatformat:"1" }}</h4>
-        </div>
-        <div id="company-card-main">
+        </aside>
+        <section id="company-card-main">
             <section id="company-card-main-info">
                 <h1 class="inverse">{{client.user.first_name}}</h1>
                 <h2 class="inverse">{{client.bio}}</h2>
@@ -40,8 +43,8 @@
                 {% endif %}
 
             </section>
-        </div>
-    </div>
+        </section>
+    </main>
 {% endblock %}
 
 

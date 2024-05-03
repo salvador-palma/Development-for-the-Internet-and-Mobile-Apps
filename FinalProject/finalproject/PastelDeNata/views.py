@@ -3,7 +3,7 @@ import string
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.db.models import Sum, Avg
+from django.db.models import Sum, Avg, Count
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -16,10 +16,14 @@ from PastelDeNata.models import Client
 
 from django.core.files.storage import FileSystemStorage
 from bs4 import BeautifulSoup
+
+
 def index(request):
     companies = Enterprise.objects.all().order_by('rating_average')
     districts = District.objects.all().order_by('name')
-    return render(request, 'PastelDeNata/index.html',{'companies': companies, "districts": districts})
+    suggestion = getSmartSuggestion(request)
+
+    return render(request, 'PastelDeNata/index.html',{'companies': companies, "districts": districts, "sugestion": suggestion})
 def registar(request):
     if request.method == 'POST':
         if request.POST['action'] == 'Login':
@@ -30,7 +34,7 @@ def registar(request):
                 login(request, user)
                 return HttpResponseRedirect(reverse('PastelDeNata:index'))
             else:
-                return HttpResponseRedirect(reverse('PastelDeNata:registar'))
+                return render(request, 'PastelDeNata/login.html', {'error_message':"A conta especificada não existe"})
         elif request.POST['action'] == 'Registar':
 
             clientType = request.POST['clientType']
@@ -53,7 +57,6 @@ def registar(request):
 def sair(request):
     logout(request)
     return HttpResponseRedirect(reverse('PastelDeNata:index'))
-
 def companyprofileedit(request, company_id):
     if request.method == 'POST' and request.POST['action'] == 'GUARDAR':
         company = get_object_or_404(Enterprise, pk=company_id)
@@ -72,7 +75,6 @@ def companyprofileedit(request, company_id):
         company_photos = Photo.objects.filter(enterprise__id=company_id)
 
         return render(request, 'PastelDeNata/estabelecimento-editar.html',{'company': company,'company_photos': company_photos, 'districts': districts})
-
 def companyprofile(request, company_id):
     company = get_object_or_404(Enterprise, pk=company_id)
 
@@ -106,8 +108,6 @@ def companyprofile(request, company_id):
         latest_reviews = Rating.objects.filter(enterprise__id=company_id, client=request.user.client) | latest_reviews
     company_photos = Photo.objects.filter(enterprise__id=company_id)
     return render(request, 'PastelDeNata/estabelecimento.html', {'company': company, 'latest_reviews': latest_reviews, 'company_photos': company_photos})
-
-
 def userprofile(request, client_id):
     client = get_object_or_404(Client, pk=client_id)
     if request.method == 'POST' and request.POST['action'] == 'GUARDAR':
@@ -132,8 +132,6 @@ def userprofile(request, client_id):
     all_reviews = Rating.objects.filter(client__id=client_id).order_by('-date')
     average_rating = all_reviews.aggregate(avg_value=Avg('value'))['avg_value']
     return render(request, 'PastelDeNata/profile.html',{'client': client, 'all_reviews': all_reviews, 'average_rating': average_rating})
-
-
 def userprofileedit(request, client_id):
     if(request.user.client.id != client_id):
         return HttpResponseRedirect(reverse('PastelDeNata:index'))
@@ -156,12 +154,13 @@ def update_company_photos(company, request):
         photo = Photo.objects.create(enterprise=company, href=file_name)
         photo.save()
 
-
 def get_all_companies(request):
 
+    slots_per_page = 8
     district = request.GET['district']
     search_str = request.GET['search_str']
     sorting_mode = request.GET['sorting_mode']
+    page = int(request.GET['page'])
 
     results = Enterprise.objects.all()
     if search_str != " ":
@@ -183,15 +182,14 @@ def get_all_companies(request):
     elif sorting_mode == 'ALF_DESC':
         results = results.order_by('-user__first_name')
 
+    results = results[(slots_per_page*page):(slots_per_page*(page+1))]
     return render(request, 'PastelDeNata/company_table.html', {'companies': results, })
-
 
 def remove_review(request, company_id):
     company = get_object_or_404(Enterprise, pk=company_id)
     client = request.user.client
     previous_review = Rating.objects.get(enterprise=company, client=client)
     previous_review.delete()
-
     total_stars = Rating.objects.filter(enterprise=company).aggregate(total_sum=Sum('value')).get('total_sum', 0)
     if total_stars is None:
         total_stars = 0
@@ -200,6 +198,31 @@ def remove_review(request, company_id):
     company.save()
     return HttpResponseRedirect(reverse('PastelDeNata:companyprofile', kwargs={'company_id': company_id}))
 
+def getSmartSuggestion(request):
+    if request.user.is_authenticated:
+        if hasattr(request.user, 'client'):
+            all_user_reviews = Rating.objects.filter(client=request.user.client)
+            district = {d.name: 0 for d in District.objects.all()}
+            for review in all_user_reviews:
+                district[review.enterprise.district.name] += 1
+
+            print(district)
+
+            max_reviews =  max(district.values())
+            most_common_districts = [d for d, review_amount in district.items() if review_amount == max_reviews]
+
+            all_district_companies = Enterprise.objects.filter(district__name__in=most_common_districts)
+            companies_reviewed = all_user_reviews.values_list("enterprise_id")
+            all_unvisited_companies = all_district_companies.exclude(id__in=companies_reviewed)
+
+            ordered_result = all_unvisited_companies.order_by('-rating_average')
+            return ordered_result.first()
+        elif hasattr(request.user, 'enterprise'):
+            return Enterprise.objects.filter(district=request.user.enterprise.district).exclude(id=request.user.enterprise.id).order_by('-rating_average').first()
+
+
+
+    return None
 
 # ========= 👾 H E L P F U L    F U N C T I O N S 🧩 ========== #
 def generate_random_filename(length):

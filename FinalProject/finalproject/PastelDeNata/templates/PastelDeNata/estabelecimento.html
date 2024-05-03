@@ -21,8 +21,8 @@
 {% endblock %}
 
 {% block content %}
-    <div id="company-card">
-        <div id="company-card-images">
+    <main id="company-card">
+        <aside id="company-card-images">
 
             {% if company_photos %}
                     {% for photo in company_photos %}
@@ -31,8 +31,8 @@
             {% else %}
                 <h4>Sem fotos...</h4>
             {% endif %}
-        </div>
-        <div id="company-card-main">
+        </aside>
+        <section id="company-card-main">
             <section id="company-card-main-info">
                 <h1 class="inverse">{{company.user.first_name}}</h1>
                 <h2 class="inverse">{{company.district.name}}, {{company.address}}</h2>
@@ -99,8 +99,8 @@
                 {% endif %}
 
             </section>
-        </div>
-    </div>
+        </section>
+    </main>
 {% endblock %}
 
 

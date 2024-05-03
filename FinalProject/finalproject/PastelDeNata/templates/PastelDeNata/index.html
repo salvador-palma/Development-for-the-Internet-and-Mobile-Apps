@@ -6,39 +6,65 @@
         <script src="{% static 'js/scrollBehaviours.js' %}"></script>
         <!-- THIS SCRIPT NEEDS TO BE HERE IN ORDER TO COMBINE DJANGO/AJAX -->
         <script>
-            var district = "Portugal Inteiro"
-            var sorting_mode = "RAT_DESC"
-            var search_string = " "
+            var district = "Portugal Inteiro";
+            var sorting_mode = "RAT_DESC";
+            var search_string = " ";
+            var page = 0
             $(document).ready(function () {
-
                 $('#Location').change(function() {
                     district = $(this).val();
+                    page = 0;
                     LoadTable();
                 });
                 $('#Sorting').change(function() {
                     sorting_mode = $(this).val();
+                    page = 0;
                     LoadTable();
                 });
                 $('#SearchStr').keypress(function(event) {
                     if (event.key === 'Enter') {
+                      page = 0;
                       search_string = $(this).val();
                       LoadTable();
                     }
                 });
+                $('#paginator-button-next').click(function(){
+                    page++;
+                    LoadTable();
+                })
+                $('#paginator-button-prev').click(function(){
+                    page--;
+                    if(page < 0){page=0;}
+                    else{LoadTable();}
+                })
                 LoadTable();
             });
 
             function LoadTable(){
-
+                $("#page-number").html(page+1);
+                console.log("loading....")
                 $.ajax({
                     url: "{% url 'PastelDeNata:get_all_companies' %}",
                     data: {
                         'district': district,
                         'search_str': search_string,
-                        'sorting_mode': sorting_mode
+                        'sorting_mode': sorting_mode,
+                        'page': page,
+
                     },
                     success: function (response) {
+                        console.log(response)
+                        var responseString = response.toString();
+
                         $("#company-grid").html(response);
+                        $("#paginator-button-prev").prop("disabled", page === 0);
+
+                        if (responseString.split("company-slot").length - 1 < 8) {
+                            $("#paginator-button-next").prop("disabled", true);
+                        } else {
+                            $("#paginator-button-next").prop("disabled", false);
+                        }
+
                     }
                 });
             }
@@ -67,13 +93,7 @@
             <p class="default">Plataforma de criticas e reviews <br> ao melhor bolo do mundo </p>
 
             {% if request.user.is_authenticated %}
-                <a class="green-button hoverable"
-                    {% if request.user.client %}
-                        href="{% url 'PastelDeNata:userprofile' request.user.client.id %}"
-                    {% else %}
-                        href="{% url 'PastelDeNata:companyprofile' request.user.enterprise.id %}"
-                    {% endif %}
-                >VER PERFIL</a>
+                <a class="green-button" href="#CompanyGridContainer">Ver Estabelecimentos</a>
             {% else %}
                 <a href="{% url 'PastelDeNata:registar' %}" class="green-button hoverable">LOG IN</a>
             {% endif %}
@@ -83,12 +103,33 @@
     <main>
         <section id="Review">
             <img src = "{% static 'images/BrownBanner.svg' %}"/>
-            <h3 class="default">APRECIADOR DE PASTEL DE NATA?</h3>
-            <a class="green-button" href="#CompanyGridContainer">Faca uma Review</a>
+            {% if request.user.is_authenticated %}
+                {% if sugestion %}
+                    {% if request.user.client %}
+                    <h3 class="default">JA SABE ONDE VAI LANCHAR HOJE?</h3>
+                    <a class="green-button" href="{% url 'PastelDeNata:companyprofile' sugestion.id %}">Ver Sugestão</a>
+                    {% else %}
+                        <h3 class="default">VAMOS ANALISAR A CONCORRÊNCIA?</h3>
+                        <a class="green-button" href="{% url 'PastelDeNata:companyprofile' sugestion.id %}">Ver Concorrência</a>
+                    {% endif %}
+                {% else %}
+                    {% if request.user.client %}
+                        <h3 class="default">PARABÉNS! JÁ VISITOU TODOS OS PASTÉIS DA SUA ZONA</h3>
+                        <a class="green-button" href="#CompanyGridContainer">Procurar outras Zonas</a>
+                    {% else %}
+                        <h3 class="default">ESTÁ COM SORTE! AINDA NÃO EXISTE CONCORRÊNCIA</h3>
+                        <a class="green-button" href="{% url 'PastelDeNata:companyprofile' request.user.enterprise.id %}">Ver o meu Perfil</a>
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                <h3 class="default">VAMOS DESCOBRIR O MELHOR PASTEL JUNTOS!</h3>
+                <a class="green-button" href="{% url 'PastelDeNata:registar' %}">Registar</a>
+            {% endif %}
+
         </section>
-        <section id="CompanyGridContainer" class="v-container">
-            <h1 class="textshadow" style="font-weight: 600">DESCUBRA A SUA PROXIMA EXPERIENCIA</h1>
-            <div class="h-container" id="CompanyGridContainerFilters">
+        <section id="CompanyGridContainer" class="v-container" style="padding-top: 8.5vw; transform: translateY(-20vw)">
+            <h1 class="textshadow" style="font-weight: 600">DESCUBRA A SUA PRÓXIMA EXPERIÊNCIA</h1>
+            <section class="h-container" id="CompanyGridContainerFilters">
                 <div class="filter-input">
                     <img src="{% static 'images/IconSearch.png' %}">
                     <input id="SearchStr" type="text" placeholder="i.g. Pasteis de Belem" >
@@ -114,15 +155,39 @@
 
                     </select>
                 </div>
-            </div>
-            <div id="company-grid-scrollview">
-                <div id="company-grid">
-                    <!-- INSERT COMPANIES HERE -->
-                </div>
-            </div>
-
+            </section>
+            <section id="company-grid">
+                <!-- INSERT COMPANIES HERE -->
+            </section>
+            <section id="company-grid-paginator">
+                <button id="paginator-button-prev" class="icon"><img src="{% static 'images/IconNext.png' %}"></button>
+                <span id="page-number">1</span>
+                <button id="paginator-button-next" class="icon"><img src="{% static 'images/IconNext.png' %}"></button>
+            </section>
         </section>
     </main>
+    <footer>
+        <section>
+            <h4>Contactos</h4>
+            <span>swpan@iscte-iul.pt<br>
+            tlpal@iscte-iul.pt<br>
+            msrsa4@iscte-iul.pt</span>
+
+        </section>
+        <section>
+            <h4>Morada</h4>
+             <span>Av. das Forças Armadas, 1649-026 Lisboa<br>
+             7h00 - 23h00</span>
+        </section>
+        <section>
+            <h4>Feito por</h4>
+             <span>Salvador Palma<br>
+             Tiago Palma<br>
+             Martim Saldanha</span>
+        </section>
+    </footer>
+
 {% endblock %}
+
 
 

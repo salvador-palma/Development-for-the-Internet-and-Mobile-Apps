@@ -20,7 +20,12 @@
                 <input class="styled-input" placeholder="email" name="email" type="email">
 
                 <input class="styled-input" placeholder="password" name="password" type="password">
+                {% if error_message %}
+                <span style="color:red; margin-top: 2vw">{{error_message}}</span>
+                {% endif %}
+
             </fieldset>
+
             <input class="green-button" type="submit" name="action" value="Login" />
 
         </form>
@@ -35,6 +40,7 @@
                 <input class="input-fill styled-input" placeholder="Nome Completo" name="username" type="text">
                 <input class="styled-input" placeholder="E-mail" name="email" type="email">
                 <input class="styled-input" placeholder="Password" name="password" type="password">
+
             </fieldset>
             <input class="green-button" type="submit" name="action" value="Registar" />
         </form>

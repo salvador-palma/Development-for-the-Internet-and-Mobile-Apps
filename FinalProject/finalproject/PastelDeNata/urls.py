@@ -1,5 +1,7 @@
 from django.urls import include, path
 from . import views
+from .views import LoginView
+
 app_name = 'PastelDeNata'
 urlpatterns = [
  path("", views.index, name="index"),
@@ -13,4 +15,8 @@ urlpatterns = [
  # ========= 📞 H E L P F U L    U R L    C A L L S 💭 ========== #
  path('companies', views.get_all_companies, name='get_all_companies'),
  path('remove_review/<int:company_id>/<int:client_id>', views.remove_review, name='remove_review'),
+
+
+
+ path('login/', LoginView.as_view(), name='login'),
 ]

@@ -15,8 +15,23 @@ from PastelDeNata.models import District
 from PastelDeNata.models import Client
 
 from django.core.files.storage import FileSystemStorage
-from bs4 import BeautifulSoup
 
+from django.shortcuts import get_object_or_404, render
+from django.contrib.auth import authenticate
+from django.http import JsonResponse
+from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
+class LoginView(APIView):
+     def post(self, request):
+         username = request.data.get('username')
+         password = request.data.get('password')
+         user = authenticate(username=username, password=password)
+         if user:
+            token, _ = Token.objects.get_or_create(user=user)
+            return JsonResponse({'token': token.key})
+         else:
+            return JsonResponse({'error': 'Credenciais inválidas'}, status=400)
 
 def index(request):
     companies = Enterprise.objects.all().order_by('rating_average')

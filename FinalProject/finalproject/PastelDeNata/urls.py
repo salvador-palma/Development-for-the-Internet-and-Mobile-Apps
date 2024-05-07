@@ -16,7 +16,12 @@ urlpatterns = [
  path('companies', views.get_all_companies, name='get_all_companies'),
  path('remove_review/<int:company_id>/<int:client_id>', views.remove_review, name='remove_review'),
 
-
+ # ========== 🥳 R E A C T    U R L 🎉 ========== #
 
  path('login/', LoginView.as_view(), name='login'),
+ path('api/enterprise/', views.enterprises),
+ path('api/enterprise/<int:company_id>', views.enterprises_detail),
+ path('api/rating/<int:company_id>', views.rating),
+ path('api/rating/<int:company_id>/<int:client_id>', views.rating_detail),
+
 ]

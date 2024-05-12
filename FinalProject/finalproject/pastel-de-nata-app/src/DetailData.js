@@ -1,20 +1,20 @@
 import React from "react";
 import { Button, Form, FormGroup, Table } from "reactstrap";
-import moment from "moment";
-function DetailData({ratings, company, toggle}) { // (1)
-     const closeModal = (e) => { // (2)
+
+function DetailData({ratings, company, toggle}) {
+     const closeModal = (e) => {
          e.preventDefault();
          toggle();
      }
      return (
-         <Form onSubmit={closeModal}> {/* (3) */}
+         <Form onSubmit={closeModal}> {}
              <FormGroup>
 
                  <p>{company.address}</p>
                  <p>⭐{company.rating_average.toFixed(2)}</p>
              </FormGroup>
              <FormGroup>
-                 <Table> {/* (5) */}
+                 <Table> {}
                      <thead>
                          <tr>
                              <th style={{textAlign: "left"}}>User</th>
@@ -22,7 +22,7 @@ function DetailData({ratings, company, toggle}) { // (1)
                          </tr>
                     </thead>
                     <tbody>
-                         {ratings.map( (r) => // (6)
+                         {ratings.map( (r) =>
                          <tr>
                              <td style={{textAlign: "left"}}>{ r.user_first_name}</td>
                              <td style={{textAlign: "right"}}>{ "⭐".repeat(r.value)}</td>
@@ -31,7 +31,7 @@ function DetailData({ratings, company, toggle}) { // (1)
                     </tbody>
                  </Table>
              </FormGroup>
-             <Button>Fechar</Button> {/* (3) */}
+             <Button>Fechar</Button> {}
          </Form>
      );
 }

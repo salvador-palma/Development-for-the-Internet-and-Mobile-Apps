@@ -28,7 +28,7 @@ from django.contrib.auth.models import User
 
 from PastelDeNata.serializers import EnterpriseSerializer, RatingSerializer
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def enterprises(request):
 
      if request.method == 'GET':
@@ -36,73 +36,18 @@ def enterprises(request):
          serializer = EnterpriseSerializer(companies, many=True)
          return Response(serializer.data)
 
-     elif request.method == 'POST':
-        serializer = EnterpriseSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-
-     return Response(status=status.HTTP_400_BAD_REQUEST)
-@api_view(['PUT', 'DELETE'])
-def enterprises_detail(request, question_id):
-     try:
-         company = Enterprise.objects.get(pk=question_id)
-     except Enterprise.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-     if request.method == 'PUT':
-        serializer = EnterpriseSerializer(company, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-
-     elif request.method == 'DELETE':
-         company.delete()
-         return Response(status=status.HTTP_204_NO_CONTENT)
-
      return Response(status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def rating(request, company_id):
+
      if request.method == 'GET':
          company = Enterprise.objects.get(pk=company_id)
          rating_list = company.rating_set.all()
          serializer = RatingSerializer(rating_list, many=True)
          return Response(serializer.data)
-     elif request.method == 'POST':
-         serializer = RatingSerializer(data=request.data)
-         if serializer.is_valid():
-             serializer.save()
-             return Response(status=status.HTTP_201_CREATED)
+
      return Response(status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['PUT', 'DELETE'])
-def rating_detail(request, company_id, client_id):
-     try:
-         rating = Rating.objects.get(enterprise_id=company_id, client_id=client_id)
-     except Rating.DoesNotExist:
-         return Response(status=status.HTTP_404_NOT_FOUND)
-
-     if request.method == 'PUT':
-         serializer = RatingSerializer(rating, data=request.data)
-         if serializer.is_valid():
-             serializer.save()
-             return Response(status=status.HTTP_204_NO_CONTENT)
-     elif request.method == 'DELETE':
-         rating.delete()
-         return Response(status=status.HTTP_204_NO_CONTENT)
-     return Response(status=status.HTTP_400_BAD_REQUEST)
-
-class LoginView(APIView):
-     def post(self, request):
-         username = request.data.get('username')
-         password = request.data.get('password')
-         user = authenticate(username=username, password=password)
-         if user:
-            token, _ = Token.objects.get_or_create(user=user)
-            return JsonResponse({'token': token.key})
-         else:
-            return JsonResponse({'error': 'Credenciais inválidas'}, status=400)
 
 def index(request):
     companies = Enterprise.objects.all().order_by('rating_average')

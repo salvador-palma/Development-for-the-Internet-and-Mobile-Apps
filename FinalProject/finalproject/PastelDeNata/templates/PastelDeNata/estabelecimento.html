@@ -13,7 +13,7 @@
                 }else{
                     $('#company-card-main-review-form').removeClass('hidden');
                 }
-                ReviewPanelOn = !ReviewPanelOn
+                ReviewPanelOn =! ReviewPanelOn
             });
         });
     </script>
@@ -90,7 +90,7 @@
                             <p class="inverse" style="grid-area: review;">{{ review.review }}</p>
 
                             {% if review.client.id == request.user.client.id or request.user.is_superuser%}
-                                <a class="remove-picture-button" href="{% url 'PastelDeNata:remove_review' company.id review.client.id%}" type="button" style="z-index: 2"></a>
+                                <a class="remove-picture-button" href="{% url 'PastelDeNata:remove_review' company.id review.client.id%}" type="button" style="z-index: 1"></a>
                             {% endif %}
                         </div>
                     {% endfor %}

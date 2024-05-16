@@ -216,9 +216,9 @@ def get_all_companies(request):
     results = results[(slots_per_page*page):(slots_per_page*(page+1))]
     return render(request, 'PastelDeNata/company_table.html', {'companies': results, })
 
-def remove_review(request, company_id):
+def remove_review(request, company_id, client_id):
     company = get_object_or_404(Enterprise, pk=company_id)
-    client = request.user.client
+    client = get_object_or_404(Client, pk=client_id)
     previous_review = Rating.objects.get(enterprise=company, client=client)
     previous_review.delete()
     total_stars = Rating.objects.filter(enterprise=company).aggregate(total_sum=Sum('value')).get('total_sum', 0)
@@ -260,3 +260,6 @@ def generate_random_filename(length):
     allowed_characters = string.ascii_letters + string.digits + "_-"
     random_string = ''.join(random.choice(allowed_characters) for _ in range(length))
     return random_string
+
+def teste(request):
+    return render(request, 'PastelDeNata/teste.html')
